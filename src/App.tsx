@@ -5,8 +5,9 @@ import Home from "./pages/Home";
 import { OpenFolderDialog } from "./components/dialogs";
 import LandingPage from "./pages/LandingPage";
 import Layout from "./pages/Layout";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { UserPreference } from "./types/definitions";
+import { invoke } from "@tauri-apps/api/tauri"
 
 function App() {
   let userPreference:UserPreference={
@@ -26,6 +27,14 @@ function App() {
   window.oncontextmenu=(e:any)=>{
     e.preventDefault()
   }
+
+    async function startAnvel(){
+        await invoke("serve_anvel")
+    }
+
+  useEffect(()=>{
+    startAnvel()
+  },[])
   return (
     <BrowserRouter>
       <Routes>
