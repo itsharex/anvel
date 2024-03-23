@@ -274,7 +274,7 @@ pub async fn open_file(path: web::Json<RootPath>) -> impl Responder {
             .args(&["/C", "start", "", &file_path.to_str().unwrap()])
             .spawn();
 
-        if let Ok(file) = open_cmd {
+        if let Ok(_file) = open_cmd {
             return HttpResponse::Ok().json("File opened");
         }else {
             return HttpResponse::InternalServerError().json("Failed to open file");
