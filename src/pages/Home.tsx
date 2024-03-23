@@ -704,15 +704,7 @@ export default function Home(props:Props){
                                                                                     <p className="text-white">{networkInformation.external}</p>
                                                                                 </div>
                                                                             )}
-                                                                            <div className="grid grid-cols-4 gap-10">
-                                                                                <p>Port (number)</p>
-                                                                                <p className="text-white">8000</p>
-                                                                            </div>
-                                                                            <div className="grid grid-cols-4 gap-10">
-                                                                                <p>Server (host)</p>
-                                                                                <a href={`http://${networkInformation.internal}:8000/`} target="_blank" rel="noopener noreferrer" className="text-white underline">http://{networkInformation.internal}:8000/</a>
-                                                                            </div>
-                                                                            <div className="grid grid-cols-4 gap-10">
+                                                                           <div className="grid grid-cols-4 gap-10">
                                                                                 <p>Status</p>
                                                                                 <p className="text-white">{networkInformation.external.includes("No internet")?"Offline":"Online"}</p>
                                                                             </div>
