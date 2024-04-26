@@ -64,7 +64,7 @@ async fn serve_anvel(){
         download_dir:dirs::download_dir().unwrap(),
         shared_dir:shared_dir
     });
-    let port:u16=8000;
+    let port:u16=80;
     let ipv4: (Ipv4Addr, u16)=("0.0.0.0".parse().unwrap(),port);
     HttpServer::new(move ||{
         let app_state = app_state.clone();

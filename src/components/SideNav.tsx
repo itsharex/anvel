@@ -58,7 +58,7 @@ function SideNav(props:Props) {
                         <MdSearch className="w-[18px] h-[18px]"/>
                     </button>
                     <button onClick={()=>{
-                        props.data.showSettings===false?props.data.open("http://localhost:8000/api/directory_content"):props.data.getIPs("http://localhost:8000/api/get_ip_address")
+                        props.data.showSettings===false?props.data.open("http://localhost:80/api/directory_content"):props.data.getIPs("http://localhost:80/api/get_ip_address")
                     }} className="focus:ring-1 focus:ring-violet-300 rounded-sm hover:bg-[#3c3c3c]/35 active:text-[#e5e5e5] cursor-pointer hover:text-[#e5e5e5] focus:text-[#e5e5e5]  p-[4px]">
                         <MdRefresh className="w-[18px] h-[18px]"/>
                     </button>
@@ -84,9 +84,9 @@ function SideNav(props:Props) {
                                                 <button key={content.name} onClick={()=>{
                                                     if(!content.metadata.is_file){
                                                         localStorage.setItem("path",path)
-                                                        props.data.open("http://localhost:8000/api/directory_content")
+                                                        props.data.open("http://localhost:80/api/directory_content")
                                                     }else{
-                                                        openFile("http://localhost:8000/api/open",path)
+                                                        openFile("http://localhost:80/api/open",path)
                                                     }
                                                 }} className='flex w-[195px] items-center mx-[1px] px-3 py-1 cursor-pointer hover:text-white active:text-white focus:text-white focus:ring-1 focus:ring-violet-300'>
                                                     <MdFileOpen className="w-[20px] h-[20px] pr-[3px]"/>
@@ -95,7 +95,7 @@ function SideNav(props:Props) {
                                             ):(
                                                 <button onClick={()=>{
                                                     localStorage.setItem("path",path)
-                                                    props.data.open("http://localhost:8000/api/directory_content")
+                                                    props.data.open("http://localhost:80/api/directory_content")
                                                 }} key={content.name} className='flex w-[195px] flex-grow items-center mx-[1px] px-3 py-1 cursor-pointer hover:text-white active:text-white focus:text-white focus:ring-1 focus:ring-violet-300'>
                                                     <MdFolder className="w-[20px] h-[20px] pr-[3px]"/>
                                                     <p className='text-[#e5e5e5 text-[11px] uppercase'>{content.name.length<20?content.name:(<>{content.name.slice(0,18)}...</>)}</p>
@@ -132,9 +132,9 @@ function SideNav(props:Props) {
                                                 <button key={content.name} onClick={()=>{
                                                     if(!content.metadata.is_file){
                                                         localStorage.setItem("path",content.path)
-                                                        props.data.open("http://localhost:8000/api/directory_content")
+                                                        props.data.open("http://localhost:80/api/directory_content")
                                                     }else{
-                                                        openFile("http://localhost:8000/api/open",content.path)
+                                                        openFile("http://localhost:80/api/open",content.path)
                                                     }
                                                 }} className='flex w-[195px] flex-grow items-center mx-[1px] px-3 py-1 cursor-pointer hover:text-white active:text-white focus:text-white focus:ring-1 focus:ring-violet-300'>
                                                     <MdFileOpen className="w-[20px] h-[20px] pr-[3px]"/>
@@ -143,7 +143,7 @@ function SideNav(props:Props) {
                                             ):(
                                                 <button onClick={()=>{
                                                     localStorage.setItem("path",content.path)
-                                                    props.data.open("http://localhost:8000/api/directory_content")
+                                                    props.data.open("http://localhost:80/api/directory_content")
                                                 }} key={content.name} id='folders_{name_str}' className='flex w-[195px] flex-grow items-center mx-[1px] px-3 py-1 cursor-pointer hover:text-white active:text-white focus:text-white focus:ring-1 focus:ring-violet-300'>
                                                     <MdFolder className="w-[20px] h-[20px] pr-[3px]"/>
                                                     <p className='text-[#e5e5e5 text-[11px] uppercase'>{content.name.length<20?content.name:(<>{content.name.slice(0,18)}...</>)}</p>

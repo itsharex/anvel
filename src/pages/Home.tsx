@@ -381,7 +381,7 @@ export default function Home(props:Props){
                                         <div id="test" className="ml-[200px] grid max-sm:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 w-full gap-4 px-[25px] py-[13px]">
                                             { folders&&folders.contents.map((content)=>{
                                                 let fileIcon
-                                                let downloadURL=`http://localhost:8000/api/download/${content.path}`
+                                                let downloadURL=`http://localhost:80/api/download/${content.path}`
                                                 switch (content.metadata.file_extension) {
                                                     case "apk":
 						        fileIcon=APK
@@ -600,9 +600,9 @@ export default function Home(props:Props){
                                                             onDoubleClick={()=>{
                                                                 if(!content.metadata.is_file){
                                                                     localStorage.setItem("path",path)
-                                                                    open("http://localhost:8000/api/directory_content")
+                                                                    open("http://localhost:80/api/directory_content")
                                                                 }else{
-                                                                    openFile("http://localhost:8000/api/open",path)
+                                                                    openFile("http://localhost:80/api/open",path)
                                                                 }
                                                             }}  className='flex flex-col items-center justify-center text-[12px] max-w-[150px] hover:text-white active:text-white focus:bg-[#3c3c3c]/90 focus:text-white dropdown_btn'>
                                                             {content.metadata.is_file?(<img src={fileIcon} alt='file' className='w-[55px] h-[55px]'/>):(<img src={FolderImage} alt='folder' className='w-[65px] h-[65px]'/>)}
@@ -618,10 +618,10 @@ export default function Home(props:Props){
                                                             <div>
                                                                 <div onClick={()=>{
                                                                     if(content.metadata.is_file){
-                                                                        openFile("http://localhost:8000/api/open",path)
+                                                                        openFile("http://localhost:80/api/open",path)
                                                                     }else{
                                                                         localStorage.setItem("path",path)
-                                                                        open("http://localhost:8000/api/directory_content")
+                                                                        open("http://localhost:80/api/directory_content")
                                                                     }
                                                                 }} className='px-[12px] py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35 {name_str}_open_item'>
                                                                     <MdOpenInNew className="w-[25px] h-[25px] pr-[6px]"/>
@@ -647,9 +647,9 @@ export default function Home(props:Props){
                                                                             let sendFileInfo:SendFileInfo={
                                                                                 name:content.name,
                                                                                 path,
-                                                                                recipient_server:`http://${configurations.recipient_ip}:8000/api/receive`
+                                                                                recipient_server:`http://${configurations.recipient_ip}:80/api/receive`
                                                                             };
-                                                                            sendFile("http://localhost:8000/api/send",sendFileInfo)
+                                                                            sendFile("http://localhost:80/api/send",sendFileInfo)
                                                                         }
                                                                     }} className='px-[12px] w-full py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35 {name_str}_open_item'>
                                                                         <MdSend className="w-[25px] h-[25px] pr-[6px]"/>
