@@ -342,7 +342,7 @@ export default function Home(props:Props){
                                                 }
                                                 localStorage.setItem("path",newPath)
                                                 open("http://localhost:80/api/directory_content")
-						endStartRequestLoop()
+						                        endStartRequestLoop()
                                             }} title="Previous" className="bg-[var(--primary-02)] cursor-pointer pl-[10px] pr-[3px] w-[50px] h-[35px] flex items-center">
                                                 <MdArrowBack className="w-[18px] h-[18px] mr-[5px]"/>
                                             </div>
@@ -378,307 +378,314 @@ export default function Home(props:Props){
                                 </div>
                                 {!showSettings?(
                                     <div className="w-full flex flex-wrap mt-[35px]" style={props.data.backgroundImage!=="default"?{color:"white"}:{}} id="folder_view_body">
-                                        <div id="test" className="ml-[200px] grid max-sm:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 w-full gap-4 px-[25px] py-[13px]">
-                                            { folders&&folders.contents.map((content)=>{
-                                                let fileIcon
-                                                let downloadURL=`http://localhost:80/api/download/${content.path}`
-                                                switch (content.metadata.file_extension) {
-                                                    case "apk":
-						        fileIcon=APK
-							break;
-						    case "APK":
-						        fileIcon=APK
-							break;
-						    case "sys":
-						        fileIcon=SYS
-							break
-						    case "exe":
-						        fileIcon=EXE
-							break
-						    case "mp3":
-                                                        fileIcon=audioMp3
+                                        {console.log(folders.contents.length===0)}
+                                        {folders.contents.length===0?(
+                                            <div className="ml-[200px] w-full px-[25px] py-[13px]">
+                                                <p className="text-[13px] text-center text-[var(--primary-04)]" style={props.data.backgroundImage!=="default"?{color:"white"}:{}} >This folder is empty</p>
+                                            </div>
+                                        ):(
+                                            <div id="test" className="ml-[200px] grid max-sm:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 w-full gap-4 px-[25px] py-[13px]">
+                                                {folders.contents.map((content)=>{
+                                                    let fileIcon
+                                                    let downloadURL=`http://localhost:80/api/download/${content.path}`
+                                                    switch (content.metadata.file_extension) {
+                                                        case "apk":
+                                                            fileIcon=APK
                                                         break;
-                                                    case "jpeg":
-                                                        fileIcon=downloadURL
+                                                        case "APK":
+                                                            fileIcon=APK
                                                         break;
-						    case "deb":
-						        fileIcon=DEB;
-							break;
-						    case "lnk":
-						        fileIcon=LNK
-							break;
-						    case "sql":
-						      fileIcon=SQL
-						      break
-						    case "db":
-						       fileIcon=SQL
-						       break
-						    case "DB":
-						       fileIcon=SQL
-						       break
-                                                    case "psd":
-                                                        fileIcon=PSD;
+                                                        case "sys":
+                                                            fileIcon=SYS
+                                                        break
+                                                        case "exe":
+                                                            fileIcon=EXE
+                                                        break
+                                                        case "mp3":
+                                                            fileIcon=audioMp3
                                                         break;
-                                                    case "PSD":
-                                                        fileIcon=PSD
+                                                        case "jpeg":
+                                                            fileIcon=downloadURL
+                                                            break;
+                                                        case "deb":
+                                                            fileIcon=DEB;
                                                         break;
-                                                    case "JPEG":
-                                                        fileIcon=downloadURL
+                                                        case "lnk":
+                                                            fileIcon=LNK
                                                         break;
-                                                    case "svg":
-                                                        fileIcon=downloadURL
+                                                        case "sql":
+                                                            fileIcon=SQL
+                                                        break
+                                                        case "db":
+                                                            fileIcon=SQL
+                                                        break
+                                                        case "DB":
+                                                            fileIcon=SQL
+                                                        break
+                                                        case "psd":
+                                                            fileIcon=PSD;
+                                                            break;
+                                                        case "PSD":
+                                                            fileIcon=PSD
+                                                            break;
+                                                        case "JPEG":
+                                                            fileIcon=downloadURL
+                                                            break;
+                                                        case "svg":
+                                                            fileIcon=downloadURL
+                                                            break;
+                                                        case "ttf":
+                                                            fileIcon=TXT
+                                                            break;
+                                                        case "gif":
+                                                            fileIcon=downloadURL
+                                                            break;
+                                                        case "jpg":
+                                                            fileIcon=downloadURL
+                                                            break;
+                                                        case "JPG":
+                                                            fileIcon=downloadURL
+                                                            break;
+                                                        case "png":
+                                                            fileIcon=downloadURL
+                                                            break;
+                                                        case "PNG":
+                                                            fileIcon=downloadURL
+                                                            break;
+                                                        case "webp":
+                                                            fileIcon=downloadURL
+                                                            break;
+                                                        case "WEBP":
+                                                            fileIcon=downloadURL
+                                                            break;
+                                                        case "pdf":
+                                                            fileIcon=PDF
+                                                            break;
+                                                        case "iso":
+                                                            fileIcon=ISOIMAGE
+                                                            break; 
+                                                        case "img":
+                                                            fileIcon=ISOIMAGE
+                                                            break; 
+                                                        case "old":
+                                                            fileIcon=OLD
+                                                            break;
+                                                        case "docx":
+                                                            fileIcon=DOCX
                                                         break;
-                                                    case "ttf":
-                                                        fileIcon=TXT
+                                                        case "odp":
+                                                            fileIcon=PPTX
                                                         break;
-                                                    case "gif":
-                                                        fileIcon=downloadURL
+                                                        case "html":
+                                                            fileIcon=HTML
                                                         break;
-                                                    case "jpg":
-                                                        fileIcon=downloadURL
+                                                        case "css":
+                                                            fileIcon=CSS
                                                         break;
-                                                    case "JPG":
-                                                        fileIcon=downloadURL
+                                                        case "php":
+                                                            fileIcon=PHP
                                                         break;
-                                                    case "png":
-                                                        fileIcon=downloadURL
+                                                        case "py":
+                                                            fileIcon=PYTHON
                                                         break;
-                                                    case "PNG":
-                                                        fileIcon=downloadURL
+                                                        case "xml":
+                                                            fileIcon=XML
                                                         break;
-                                                    case "webp":
-                                                        fileIcon=downloadURL
+                                                        case "js":
+                                                            fileIcon=JS
                                                         break;
-                                                    case "WEBP":
-                                                        fileIcon=downloadURL
+                                                        case "sh":
+                                                            fileIcon=SCRIPT
                                                         break;
-                                                    case "pdf":
-                                                        fileIcon=PDF
+                                                        case "odt":
+                                                            fileIcon=DOCX
                                                         break;
-                                                    case "iso":
-                                                        fileIcon=ISOIMAGE
-                                                        break; 
-                                                    case "img":
-                                                        fileIcon=ISOIMAGE
-                                                        break; 
-                                                    case "old":
-                                                        fileIcon=OLD
+                                                        case "ini":
+                                                            fileIcon=DESKTOP
+                                                        break
+                                                        case "ods":
+                                                            fileIcon=XLSX
+                                                        break
+                                                        case "doc":
+                                                            fileIcon=DOC
                                                         break;
-                                                    case "docx":
-                                                        fileIcon=DOCX
-                                                    break;
-                                                    case "odp":
-                                                        fileIcon=PPTX
-                                                    break;
-                                                    case "html":
-                                                        fileIcon=HTML
-                                                    break;
-                                                    case "css":
-                                                        fileIcon=CSS
-                                                    break;
-                                                    case "php":
-                                                        fileIcon=PHP
-                                                    break;
-                                                    case "py":
-                                                        fileIcon=PYTHON
-                                                    break;
-                                                    case "xml":
-                                                        fileIcon=XML
-                                                    break;
-                                                    case "js":
-                                                        fileIcon=JS
-                                                    break;
-                                                    case "sh":
-                                                        fileIcon=SCRIPT
-                                                    break;
-                                                    case "odt":
-                                                        fileIcon=DOCX
-                                                    break;
-						    case "ini":
-						    	fileIcon=DESKTOP
-							break
-                                                    case "ods":
-                                                        fileIcon=XLSX
-                                                    break
-                                                    case "doc":
-                                                        fileIcon=DOC
-                                                    break;
-                                                    case "csv":
-                                                        fileIcon=CSV
-                                                    break;
-                                                    case "java":
-                                                        fileIcon=JAVA
-                                                    break;
-                                                    case "cs":
-                                                        fileIcon=CSHARP
-                                                    break;
-                                                    case "cpp":
-                                                        fileIcon=CPP
-                                                    break;
-                                                    case "rs":
-                                                        fileIcon=TXT
-                                                    break;
-                                                    case "s":
-                                                        fileIcon=TXT
-                                                    break;
-                                                    case "json":
-                                                        fileIcon=SCRIPT
-                                                    break;
-                                                    case "c":
-                                                        fileIcon=C
-                                                    break;
-                                                    case "m":
-                                                        fileIcon=C
-                                                    break;
-                                                    case "h":
-                                                        fileIcon=CHEADER
-                                                    break;
-                                                    case "rb":
-                                                        fileIcon=RUBY
-                                                    break;
-                                                    case "fal":
-                                                        fileIcon=TXT
-                                                    break;
-                                                    case "go":
-                                                        fileIcon=TXT
-                                                    break;
-                                                    case "asm":
-                                                        fileIcon=TXT
-                                                    break;
-                                                    case "nim":
-                                                        fileIcon=TXT
-                                                    break;
-                                                    case "pm":
-                                                        fileIcon=PERL
-                                                    break;
-                                                    case "pl":
-                                                        fileIcon=PERL
-                                                    break;
-                                                    case "txt":
-                                                        fileIcon=TXT
+                                                        case "csv":
+                                                            fileIcon=CSV
                                                         break;
-                                                    case "md":
-                                                        fileIcon=TXT
+                                                        case "java":
+                                                            fileIcon=JAVA
                                                         break;
-                                                    case "zip":
-                                                        fileIcon=ZIP
+                                                        case "cs":
+                                                            fileIcon=CSHARP
                                                         break;
-                                                    case "mp4":
-                                                        fileIcon=videoMp4
+                                                        case "cpp":
+                                                            fileIcon=CPP
                                                         break;
-                                                    case "mkv":
-                                                        fileIcon=MKV
+                                                        case "rs":
+                                                            fileIcon=TXT
                                                         break;
-                                                    case "avi":
-                                                        fileIcon=AVI
+                                                        case "s":
+                                                            fileIcon=TXT
                                                         break;
-                                                    case "pptx":
-                                                        fileIcon=PPTX
+                                                        case "json":
+                                                            fileIcon=SCRIPT
                                                         break;
-                                                    case "xlsx":
-                                                        fileIcon=XLSX
+                                                        case "c":
+                                                            fileIcon=C
                                                         break;
-                                                    case "desktop":
-                                                        fileIcon=DESKTOP
+                                                        case "m":
+                                                            fileIcon=C
                                                         break;
-                                                    default:
-                                                        fileIcon=unknownFile
+                                                        case "h":
+                                                            fileIcon=CHEADER
                                                         break;
-                                                }
-						let path=content.path
-						if(path.includes("\\")){
-            					   // Replace backslashes with forward slashes
-            					   path = path.replace(/\\/g, "/")
-        					}	
-                                                return(
-                                                    <div key={content.name} className="flex flex-col items-center text-center">
-                                                        <button id={content.name} title={content.name}
-                                                            onContextMenu={()=>{
-                                                                let dropdown_list=document.getElementById(`context_list_${content.name}`);
-                                                                dropdown_list?.classList.toggle("block");
-                                                            }}
-                                                            onDoubleClick={()=>{
-                                                                if(!content.metadata.is_file){
-                                                                    localStorage.setItem("path",path)
-                                                                    open("http://localhost:80/api/directory_content")
-                                                                }else{
-                                                                    openFile("http://localhost:80/api/open",path)
-                                                                }
-                                                            }}  className='flex flex-col items-center justify-center text-[12px] max-w-[150px] focus:bg-[var(--primary-03)] dropdown_btn'>
-                                                            {content.metadata.is_file?(<img src={fileIcon} alt='file' className='w-[55px] h-[55px]'/>):(<img src={FolderImage} alt='folder' className='w-[65px] h-[65px]'/>)}
-                                                            <div className='flex justify-center'>
-                                                                {content.name.length<30?(
-                                                                    <p className="w-fit">{content.name}</p>
-                                                                ):(
-                                                                    <p className="w-fit">{!content.name.includes(" ")?content.name.slice(0,22):content.name.slice(0,30)}...</p>
-                                                                )}
-                                                            </div>
-                                                        </button>
-                                                        <div id={`context_list_${content.name}`} className='dropdown-content  flex-wrap  w-[200px] mt-[50px] -ml-[5px] max-lg:-ml-[27px]'>
-                                                            <div>
-                                                                <div onClick={()=>{
-                                                                    if(content.metadata.is_file){
-                                                                        openFile("http://localhost:80/api/open",path)
-                                                                    }else{
+                                                        case "rb":
+                                                            fileIcon=RUBY
+                                                        break;
+                                                        case "fal":
+                                                            fileIcon=TXT
+                                                        break;
+                                                        case "go":
+                                                            fileIcon=TXT
+                                                        break;
+                                                        case "asm":
+                                                            fileIcon=TXT
+                                                        break;
+                                                        case "nim":
+                                                            fileIcon=TXT
+                                                        break;
+                                                        case "pm":
+                                                            fileIcon=PERL
+                                                        break;
+                                                        case "pl":
+                                                            fileIcon=PERL
+                                                        break;
+                                                        case "txt":
+                                                            fileIcon=TXT
+                                                            break;
+                                                        case "md":
+                                                            fileIcon=TXT
+                                                            break;
+                                                        case "zip":
+                                                            fileIcon=ZIP
+                                                            break;
+                                                        case "mp4":
+                                                            fileIcon=videoMp4
+                                                            break;
+                                                        case "mkv":
+                                                            fileIcon=MKV
+                                                            break;
+                                                        case "avi":
+                                                            fileIcon=AVI
+                                                            break;
+                                                        case "pptx":
+                                                            fileIcon=PPTX
+                                                            break;
+                                                        case "xlsx":
+                                                            fileIcon=XLSX
+                                                            break;
+                                                        case "desktop":
+                                                            fileIcon=DESKTOP
+                                                            break;
+                                                        default:
+                                                            fileIcon=unknownFile
+                                                            break;
+                                                    }
+                                                    let path=content.path
+                                                    if(path.includes("\\")){
+                                                        // Replace backslashes with forward slashes
+                                                        path = path.replace(/\\/g, "/")
+                                                    }	
+                                                    return(
+                                                        <div key={content.name} className="flex flex-col items-center text-center">
+                                                            <button id={content.name} title={content.name}
+                                                                onContextMenu={()=>{
+                                                                    let dropdown_list=document.getElementById(`context_list_${content.name}`);
+                                                                    dropdown_list?.classList.toggle("block");
+                                                                }}
+                                                                onDoubleClick={()=>{
+                                                                    if(!content.metadata.is_file){
                                                                         localStorage.setItem("path",path)
                                                                         open("http://localhost:80/api/directory_content")
+                                                                    }else{
+                                                                        openFile("http://localhost:80/api/open",path)
                                                                     }
-                                                                }} className='px-[12px] py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35 {name_str}_open_item'>
-                                                                    <MdOpenInNew className="w-[25px] h-[25px] pr-[6px]"/>
-                                                                    <p>Open</p>
+                                                                }}  className='flex flex-col items-center justify-center text-[12px] max-w-[150px] focus:bg-[var(--primary-03)] dropdown_btn'>
+                                                                {content.metadata.is_file?(<img src={fileIcon} alt='file' className='w-[55px] h-[55px]'/>):(<img src={FolderImage} alt='folder' className='w-[65px] h-[65px]'/>)}
+                                                                <div className='flex justify-center'>
+                                                                    {content.name.length<30?(
+                                                                        <p className="w-fit">{content.name}</p>
+                                                                    ):(
+                                                                        <p className="w-fit">{!content.name.includes(" ")?content.name.slice(0,22):content.name.slice(0,30)}...</p>
+                                                                    )}
                                                                 </div>
-                                                                <button onClick={()=>{
-                                                                    navigator.clipboard.writeText(path)
-                                                                }} className='px-[12px] w-full py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35 {name_str}_open_item'>
-                                                                    <MdContentCopy className="w-[25px] h-[25px] pr-[6px]"/>
-                                                                    <p>Copy Path</p>
-                                                                </button>
-                                                                <button onClick={()=>{
-                                                                    navigator.clipboard.writeText(path)
-                                                                }} className='px-[12px] w-full py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35 {name_str}_open_item'>
-                                                                    <MdEdit className="w-[25px] h-[25px] pr-[6px]"/>
-                                                                    <p>Rename</p>
-                                                                </button>
-                                                                {content.metadata.is_file&&localStorage.getItem("path")!=="shared"?(
+                                                            </button>
+                                                            <div id={`context_list_${content.name}`} className='dropdown-content  flex-wrap  w-[200px] mt-[50px] -ml-[5px] max-lg:-ml-[27px]'>
+                                                                <div>
                                                                     <div onClick={()=>{
-                                                                        if(configurations.recipient_ip.length===0){
-                                                                            handleShowSettings()
+                                                                        if(content.metadata.is_file){
+                                                                            openFile("http://localhost:80/api/open",path)
                                                                         }else{
-                                                                            let sendFileInfo:SendFileInfo={
-                                                                                name:content.name,
-                                                                                path,
-                                                                                recipient_server:`http://${configurations.recipient_ip}:80/api/receive`
-                                                                            };
-                                                                            sendFile("http://localhost:80/api/send",sendFileInfo)
+                                                                            localStorage.setItem("path",path)
+                                                                            open("http://localhost:80/api/directory_content")
                                                                         }
-                                                                    }} className='px-[12px] w-full py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35 {name_str}_open_item'>
-                                                                        <MdSend className="w-[25px] h-[25px] pr-[6px]"/>
-                                                                        <p>{configurations.recipient_ip.length!==0?(
-                                                                            <span>Send to {configurations.recipient_ip}</span>
-                                                                        ):(
-                                                                            <span>Add Recipient's IP</span>
-                                                                        )}</p>
+                                                                    }} className='px-[12px] py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35 {name_str}_open_item'>
+                                                                        <MdOpenInNew className="w-[25px] h-[25px] pr-[6px]"/>
+                                                                        <p>Open</p>
                                                                     </div>
-                                                                ):""}
-                                                                <button onClick={()=>{
-                                                                    navigator.clipboard.writeText(path)
-                                                                }} className='px-[12px] w-full py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35 {name_str}_open_item'>
-                                                                    <MdDelete className="w-[25px] h-[25px] pr-[6px]"/>
-                                                                    <p>Delete</p>
-                                                                </button>
-                                                                <button onClick={()=>{
-                                                                    toggleDialog(`file_info_dialog`)
-                                                                    setInfoContent(content)
-                                                                }} className='px-[12px] w-full py-[8px] flex items-center border-t-[1px] border-[#9999991A] cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35'>
-                                                                    <MdInfoOutline className="w-[25px] h-[25px] pr-[6px]"/>
-                                                                    <p>Properties</p>
-                                                                </button>
+                                                                    <button onClick={()=>{
+                                                                        navigator.clipboard.writeText(path)
+                                                                    }} className='px-[12px] w-full py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35 {name_str}_open_item'>
+                                                                        <MdContentCopy className="w-[25px] h-[25px] pr-[6px]"/>
+                                                                        <p>Copy Path</p>
+                                                                    </button>
+                                                                    <button onClick={()=>{
+                                                                        navigator.clipboard.writeText(path)
+                                                                    }} className='px-[12px] w-full py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35 {name_str}_open_item'>
+                                                                        <MdEdit className="w-[25px] h-[25px] pr-[6px]"/>
+                                                                        <p>Rename</p>
+                                                                    </button>
+                                                                    {content.metadata.is_file&&localStorage.getItem("path")!=="shared"?(
+                                                                        <div onClick={()=>{
+                                                                            if(configurations.recipient_ip.length===0){
+                                                                                handleShowSettings()
+                                                                            }else{
+                                                                                let sendFileInfo:SendFileInfo={
+                                                                                    name:content.name,
+                                                                                    path,
+                                                                                    recipient_server:`http://${configurations.recipient_ip}:80/api/receive`
+                                                                                };
+                                                                                sendFile("http://localhost:80/api/send",sendFileInfo)
+                                                                            }
+                                                                        }} className='px-[12px] w-full py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35 {name_str}_open_item'>
+                                                                            <MdSend className="w-[25px] h-[25px] pr-[6px]"/>
+                                                                            <p>{configurations.recipient_ip.length!==0?(
+                                                                                <span>Send to {configurations.recipient_ip}</span>
+                                                                            ):(
+                                                                                <span>Add Recipient's IP</span>
+                                                                            )}</p>
+                                                                        </div>
+                                                                    ):""}
+                                                                    <button onClick={()=>{
+                                                                        navigator.clipboard.writeText(path)
+                                                                    }} className='px-[12px] w-full py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35 {name_str}_open_item'>
+                                                                        <MdDelete className="w-[25px] h-[25px] pr-[6px]"/>
+                                                                        <p>Delete</p>
+                                                                    </button>
+                                                                    <button onClick={()=>{
+                                                                        toggleDialog(`file_info_dialog`)
+                                                                        setInfoContent(content)
+                                                                    }} className='px-[12px] w-full py-[8px] flex items-center border-t-[1px] border-[#9999991A] cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35'>
+                                                                        <MdInfoOutline className="w-[25px] h-[25px] pr-[6px]"/>
+                                                                        <p>Properties</p>
+                                                                    </button>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                )
-                                            })}
-                                        </div>
+                                                    )
+                                                })}
+                                            </div>
+                                        )}
                                     </div>
                                 ):(
                                     <div  style={props.data.backgroundImage!=="default"?{color:"white"}:{}} className="w-full flex flex-wrap mt-[35px] text-[var(--primary-04)]" id="settings_view">
@@ -692,7 +699,7 @@ export default function Home(props:Props){
                                                                 <i className="text-sm">Getting Network Information...</i>
                                                             ):(
                                                                 <>
-                                                                    {networkInformation.internal.length===0?(<>{error.message}</>):(
+                                                                    {networkInformation.internal.length===0?(<p className="text-[14px] text-red-600">{error.message}...</p>):(
                                                                         <>
                                                                             <div className="grid grid-cols-4 gap-10">
                                                                                 <p>Internet Protocol (IP)</p>
@@ -734,7 +741,7 @@ export default function Home(props:Props){
                                                                 ):(
                                                                     <div className="grid grid-cols-4 gap-10">
                                                                         <p>Recipient's IP</p>
-                                                                        <p className="text-white">{configurations.recipient_ip}</p>
+                                                                        <p className="text-[var(--primary-04)]" style={props.data.backgroundImage!=="default"?{color:"white"}:{}}>{configurations.recipient_ip}</p>
                                                                     </div>
                                                                 )}
                                                             <div className="grid grid-cols-4 gap-10">
