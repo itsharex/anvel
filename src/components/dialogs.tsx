@@ -14,7 +14,7 @@ export function FileInfoDialog(props:Props){
     return(
         <div id={`file_info_dialog`} className="fixed top-0 bottom-0 left-0 right-0 z-20 bg-[#151515]/70 none">
             <div className="flex flex-col justify-center items-center h-[100vh]">
-                <div id="dialog" className="items-center flex flex-col bg-[var(--primary-01)] text-[var(--primary-04)] justify-center p-[24px] focus:ring-1 focus:ring-violet-300">
+                <div id="dialog" className="items-center flex flex-col bg-[var(--primary-02)] text-[var(--primary-04)] justify-center p-[24px] focus:ring-1 focus:ring-violet-300">
                     <div className="flex ml-auto mb-[8px] justify-end h-[22px] pb-[4px]">
                         <MdClose onClick={()=>props.data.functions.toggleDialog(`file_info_dialog`)} className="md-16 cursor-pointer"/>
                     </div>    
@@ -79,7 +79,7 @@ export function OpenFolderDialog(){
     return(
         <div id="open_folder_dialog" className="fixed top-0 bottom-0 left-0 right-0 z-20 bg-[#151515]/70 none">
             <div className="flex flex-col justify-center items-center h-[100vh]">
-                <div id="dialog" className="text-white items-center flex flex-col bg-[var(--primary-01)] justify-center p-[24px] focus:ring-1 focus:ring-violet-300">
+                <div id="dialog" className="text-white items-center flex flex-col bg-[var(--primary-02)] justify-center p-[24px] focus:ring-1 focus:ring-violet-300">
                     <div className="flex ml-auto mb-[8px] justify-end h-[22px] pb-[4px]">
                         <MdClose onClick={close_dialog} className="w-[20px] h-[20px] cursor-pointer text-[var(--primary-04)]"/>
                     </div>    
