@@ -14,12 +14,12 @@ export function FileInfoDialog(props:Props){
     return(
         <div id={`file_info_dialog`} className="fixed top-0 bottom-0 left-0 right-0 z-20 bg-[#151515]/70 none">
             <div className="flex flex-col justify-center items-center h-[100vh]">
-                <div id="dialog" className="items-center flex flex-col bg-[#252525] justify-center p-[24px] focus:ring-1 focus:ring-violet-300">
-                    <div className="flex ml-auto mb-[8px] justify-end h-[22px] pb-[4px] text-white">
+                <div id="dialog" className="items-center flex flex-col bg-[var(--primary-01)] text-[var(--primary-04)] justify-center p-[24px] focus:ring-1 focus:ring-violet-300">
+                    <div className="flex ml-auto mb-[8px] justify-end h-[22px] pb-[4px]">
                         <MdClose onClick={()=>props.data.functions.toggleDialog(`file_info_dialog`)} className="md-16 cursor-pointer"/>
                     </div>    
                     <div className="w-[452px] h-[132px]"> 
-                        <div className="flex flex-col gap-3 pb-4 text-[13px]  text-gray-300">
+                        <div className="flex flex-col gap-3 pb-4 text-[13px]">
                             <div className="flex gap-14">
                                 <p>Name:</p>
                                 {props.data.info.name.length>30?(
@@ -79,15 +79,15 @@ export function OpenFolderDialog(){
     return(
         <div id="open_folder_dialog" className="fixed top-0 bottom-0 left-0 right-0 z-20 bg-[#151515]/70 none">
             <div className="flex flex-col justify-center items-center h-[100vh]">
-                <div id="dialog" className="text-white items-center flex flex-col bg-[#252525] justify-center p-[24px] focus:ring-1 focus:ring-violet-300">
-                    <div className="flex ml-auto mb-[8px] justify-end h-[22px] pb-[4px] text-white">
-                        <MdClose onClick={close_dialog} className="w-[20px] h-[20px] cursor-pointer"/>
+                <div id="dialog" className="text-white items-center flex flex-col bg-[var(--primary-01)] justify-center p-[24px] focus:ring-1 focus:ring-violet-300">
+                    <div className="flex ml-auto mb-[8px] justify-end h-[22px] pb-[4px]">
+                        <MdClose onClick={close_dialog} className="w-[20px] h-[20px] cursor-pointer text-[var(--primary-04)]"/>
                     </div>    
                     <form onSubmit={handleOpenFolder} className="w-[452px] h-[90px]"> 
                         <div id="feedback_container">
-                            <label htmlFor="path" className="text-white font-medium text-base">Enter or paste the folder's path</label>
+                            <label htmlFor="path" className="font-medium text-base text-[var(--primary-04)]">Enter or paste the folder's path</label>
                             <div className="flex gap-2 mt-2">
-                                <input id="path" name="path" className="px-2 py-1 w-full rounded-sm text-black border-violet-300 border-[1px] focus:ring-1 focus:ring-violet-300" type="text" placeholder="C:/.../Downloads" required/>
+                                <input id="path" name="path" className="px-2 py-1 w-full rounded-sm text-black focus:border-none focus:outline-violet-300 border-violet-300 border-[1px] focus:ring-1 focus:ring-violet-300" type="text" placeholder="C:/.../Downloads" required/>
                                 <button className="py-1 px-[16px] hover:bg-[#EDFFA1] border-none w-[100px] text-[#1D1D1D] rounded-sm bg-[var(--theme-yellow)]">
                                     Open
                                 </button>

@@ -28,9 +28,9 @@ function App() {
     e.preventDefault()
   }
 
-    async function startAnvel(){
-        await invoke("serve_anvel")
-    }
+  async function startAnvel(){
+    await invoke("serve_anvel")
+  }
 
   useEffect(()=>{
     startAnvel()
