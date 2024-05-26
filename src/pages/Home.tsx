@@ -328,7 +328,7 @@ export default function Home(props:Props){
                             <div id="folder_view">
                                 {/* folder view nav */}
                                 <div id="folder_view_nav" className="fixed overflow-hidden border-dotted border-[#3c3c3c]/50 border-l-[1px] left-[199px] right-0 top-[35px]">
-                                    <div className="flex w-full bg-[var(--primary-01)]">
+                                    <div className="flex w-full bg-[var(--primary-02)]">
                                         {localStorage.getItem("path")==="/"?"":(
                                             <div onClick={()=>{
                                                 let path:any=localStorage.getItem("path")!==null?localStorage.getItem("path"):""
@@ -343,12 +343,12 @@ export default function Home(props:Props){
                                                 localStorage.setItem("path",newPath)
                                                 open("http://localhost:80/api/directory_content")
 						endStartRequestLoop()
-                                            }} title="Previous" className="bg-[var(--primary-01)] hover:bg-[var(--primary-02)] cursor-pointer pl-[10px] pr-[3px] w-[50px] h-[35px] flex items-center">
+                                            }} title="Previous" className="bg-[var(--primary-02)] cursor-pointer pl-[10px] pr-[3px] w-[50px] h-[35px] flex items-center">
                                                 <MdArrowBack className="w-[18px] h-[18px] mr-[5px]"/>
                                             </div>
                                         )}
 
-                                        <div onClick={()=>handleCloseSettings()} onMouseEnter={()=>toggleShowCloseBtn(`folder_close_btn`)} onMouseLeave={()=>toggleShowCloseBtn(`folder_close_btn`)} className={showSettings===true?"bg-[var(--primary-01)] border-dotted border-l-[1px] border-[#3c3c3c]/50 hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[3px] min-w-[128px] h-[35px] flex items-center":"bg-[var(--primary-03)] hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[3px] min-w-[128px] h-[35px] flex items-center"}>
+                                        <div onClick={()=>handleCloseSettings()} onMouseEnter={()=>toggleShowCloseBtn(`folder_close_btn`)} onMouseLeave={()=>toggleShowCloseBtn(`folder_close_btn`)} className={showSettings===true?"bg-[var(--primary-02)] border-dotted border-l-[1px] border-[#3c3c3c]/50 hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[3px] min-w-[128px] h-[35px] flex items-center":"bg-[var(--primary-01)] hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[3px] min-w-[128px] h-[35px] flex items-center"}>
                                             <MdFolder className="w-[18px] h-[18px] mr-[5px]"/>
                                             <p className="mr-[3px] text-[13px] capitalize root_path_indicator">{name}</p>
                                             <MdClose id="folder_close_btn" className="p-[3px] none w-[22px] h-[22px] bg-[var(--primary-02)] ml-auto rounded-sm" onClick={()=>{
@@ -358,7 +358,7 @@ export default function Home(props:Props){
                                         </div>
 
                                         {showSettingsTab?(
-                                            <div onMouseEnter={()=>toggleShowCloseBtn(`settings_close_btn`)} onMouseLeave={()=>toggleShowCloseBtn(`settings_close_btn`)} className={showSettings!==true?"bg-[var(--primary-01)] border-dotted border-r-[1px] border-[#3c3c3c]/50 hover:bg-[#3c3c3c]/55 cursor-pointer pr-[3px] min-w-[128px] h-[35px] flex items-center":"bg-[var(--primary-02)] hover:bg-[#3c3c3c]/55 cursor-pointer pr-[3px] min-w-[128px] h-[35px] flex items-center"}>
+                                            <div onMouseEnter={()=>toggleShowCloseBtn(`settings_close_btn`)} onMouseLeave={()=>toggleShowCloseBtn(`settings_close_btn`)} className={showSettings!==true?"bg-[var(--primary-02)] border-dotted border-r-[1px] border-[#3c3c3c]/50 hover:bg-[#3c3c3c]/55 cursor-pointer pr-[3px] min-w-[128px] h-[35px] flex items-center":"bg-[var(--primary-01)] hover:bg-[#3c3c3c]/55 cursor-pointer pr-[3px] min-w-[128px] h-[35px] flex items-center"}>
                                                 <div className="flex pl-[10px]" onClick={()=>{
                                                     setSettingsHeader("Settings - Anvel")
                                                     setShowSettings(true)
@@ -377,7 +377,7 @@ export default function Home(props:Props){
                                     </div>
                                 </div>
                                 {!showSettings?(
-                                    <div className="w-full flex flex-wrap mt-[35px]" id="folder_view_body">
+                                    <div className="w-full flex flex-wrap mt-[35px]" style={props.data.backgroundImage!=="default"?{color:"white"}:{}} id="folder_view_body">
                                         <div id="test" className="ml-[200px] grid max-sm:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 w-full gap-4 px-[25px] py-[13px]">
                                             { folders&&folders.contents.map((content)=>{
                                                 let fileIcon
@@ -681,7 +681,7 @@ export default function Home(props:Props){
                                         </div>
                                     </div>
                                 ):(
-                                    <div className="w-full flex flex-wrap mt-[35px] text-[var(--primary-04)]" id="settings_view">
+                                    <div  style={props.data.backgroundImage!=="default"?{color:"white"}:{}} className="w-full flex flex-wrap mt-[35px] text-[var(--primary-04)]" id="settings_view">
                                         <div className="ml-[200px] flex flex-col w-full gap-x-4 gap-y-12 px-[25px] py-[13px]">
                                             <div>
                                                 <p className="text-lg font-semibold mb-2">Network Information</p>
@@ -696,17 +696,17 @@ export default function Home(props:Props){
                                                                         <>
                                                                             <div className="grid grid-cols-4 gap-10">
                                                                                 <p>Internet Protocol (IP)</p>
-                                                                                <p className="text-[var(--primary-04)]">{networkInformation.internal}</p>
+                                                                                <p  style={props.data.backgroundImage!=="default"?{color:"white"}:{}} className="text-[var(--primary-04)]">{networkInformation.internal}</p>
                                                                             </div>
                                                                             {networkInformation.external.includes("No internet")?"":(
                                                                                 <div className="grid grid-cols-4 gap-10">
                                                                                     <p>External IP</p>
-                                                                                    <p className="text-[var(--primary-04)]">{networkInformation.external}</p>
+                                                                                    <p  style={props.data.backgroundImage!=="default"?{color:"white"}:{}} className="text-[var(--primary-04)]">{networkInformation.external}</p>
                                                                                 </div>
                                                                             )}
                                                                            <div className="grid grid-cols-4 gap-10">
                                                                                 <p>Status</p>
-                                                                                <p className="text-[var(--primary-04)]">{networkInformation.external.includes("No internet")?"Offline":"Online"}</p>
+                                                                                <p  style={props.data.backgroundImage!=="default"?{color:"white"}:{}} className="text-[var(--primary-04)]">{networkInformation.external.includes("No internet")?"Offline":"Online"}</p>
                                                                             </div>
                                                                         </>
                                                                     )}
@@ -729,7 +729,7 @@ export default function Home(props:Props){
                                                                 {configurations.recipient_ip.length===0?(
                                                                     <div className="grid grid-cols-4 gap-10">
                                                                         <label htmlFor="recipient_ip">Enter Recipient's IP</label>
-                                                                        <input id="recipient_ip" name="recipient_ip" className="px-2 py-1 w-full rounded-md bg-transparent border-violet-300 focus:border-none focus:outline-violet-300 border-[1px] focus:ring-1 focus:ring-violet-300" type="text" placeholder="192.10.0.95" required/>
+                                                                        <input id="recipient_ip" name="recipient_ip" className="px-2 py-1 w-full rounded-md bg-transparent border-violet-300 focus:border-none focus:outline-none border-[1px] focus:ring-1 focus:ring-violet-300" type="text" placeholder="192.10.0.95" required/>
                                                                     </div>
                                                                 ):(
                                                                     <div className="grid grid-cols-4 gap-10">
@@ -742,7 +742,7 @@ export default function Home(props:Props){
                                                                 <input disabled id="both_folder_and_file" name="both_folder_and_file" checked type="checkbox" className="h-[20px] w-[20px] cursor-pointer rounded-md bg-transparent focus:outline-none checked:bg-violet-300 focus:ring-1 focus:ring-violet-300" />
                                                             </div>
                                                             {configurations.recipient_ip.length===0?(
-                                                                <button className="py-1 px-[16px] hover:bg-[#EDFFA1] border-none w-[100px] rounded-sm bg-[var(--theme-yellow)]">
+                                                                <button className="py-1 px-[16px] hover:bg-[#EDFFA1] border-none w-[100px] text-black rounded-sm bg-[var(--theme-yellow)]">
                                                                     Save
                                                                 </button>
                                                             ):(
@@ -750,7 +750,7 @@ export default function Home(props:Props){
                                                                     setConfigurations({
                                                                         recipient_ip:""
                                                                     })
-                                                                }} className="py-1 px-[16px] hover:bg-[#EDFFA1] border-none w-[100px] rounded-sm bg-[var(--theme-yellow)]">
+                                                                }} className="py-1 px-[16px] hover:bg-[#EDFFA1] border-none w-[100px] rounded-sm text-black bg-[var(--theme-yellow)]">
                                                                     Change
                                                                 </button>
                                                             )}
@@ -764,7 +764,7 @@ export default function Home(props:Props){
                                                     <p>Choose Background image</p>
                                                     <div className="flex max-sm:flex-col gap-2 my-2">
                                                         <button onClick={()=>props.data.changeBackground("default")} style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)"}} className="bg-[var(--primary-01)] flex justify-center items-center rounded-md h-[200px] w-[240px]">
-                                                            <p className="text-base">Default</p>
+                                                            <p  style={props.data.backgroundImage!=="default"?{color:"black"}:{}} className="text-base">Default</p>
                                                         </button>
                                                         <div className="flex max-sm:flex-col gap-2">
                                                             {chooseBackground.map((choice)=>{

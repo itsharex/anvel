@@ -20,10 +20,10 @@
   -moz-osx-font-smoothing: grayscale;
   color-scheme: light dark;
 
-  --primary-01:light-dark(#fff,#151515);
-  --primary-02:light-dark(#f2f2f2,#3c3c3c);
-  --primary-03:#f3f3f3;
-  --primary-04:light-dark(black,#252525);
+  --primary-01:light-dark(#fff,#3c3c3c);
+  --primary-02:light-dark(#f2f2f2,#151515);
+  --primary-03:light-dark(#f3f3f3,#252525);
+  --primary-04:light-dark(black,white);
 
   --theme-dark: white;
   --hover-gray:#3c3c3c;

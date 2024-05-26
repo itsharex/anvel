@@ -67,7 +67,7 @@ function TopNav(props:Props) {
                         <p className="capitalize">{props.data.settingsHeader}</p>
                     ):(
                         <>
-                            <p className="rounded-md text-[var(--primary-01)] bg-[#252525] py-[2px] px-2">Directory</p>
+                            <p className="rounded-md text-[var(--primary-01)] bg-[var(--primary-04)] py-[2px] px-2">Directory</p>
                             <p className="capitalize">{props.data.name}</p>
                         </>
                     )}

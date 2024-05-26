@@ -115,7 +115,7 @@ export default function Footer(props:Props){
                             let path:any=localStorage.getItem("path")
                             path!=="Anvel shared"?localStorage.setItem("previous",path):""
                             localStorage.setItem("path","Anvel shared")
-                            props.data.open("http://localhost:8000/api/directory_content")
+                            props.data.open("http://localhost:80/api/directory_content")
                             props.data.handleCloseSettings()
                             props.data.kickOffStartRequestLoop()
                         }} onMouseEnter={()=>props.data.showToast("shared_resources")} onMouseLeave={()=>props.data.showToast("shared_resources")} className="relative inline-block px-[10px] py-[2px] hover:bg-[#EDFFA5]">
