@@ -175,16 +175,16 @@ export default function Footer(props:Props){
                                                         exit={{ x: "12rem", opacity: 0 }}
                                                         transition={{ duration: 0.2 }}
                                                         layout
-                                                        key={notification.message} id={`single_${notification.message}`} style={{boxShadow:"0px 8px 16px 0px rgba(0,0,0,0.7)"}} className="px-[12px] py-2 rounded-md flex gap-2 items-center bg-[#3c3c3c]">
+                                                        key={notification.message} id={`single_${notification.message}`} style={{boxShadow:"0px 8px 16px 0px rgba(0,0,0,0.3)"}} className="px-[12px] py-2 rounded-md flex gap-2 items-center bg-[var(--primary-01)]">
                                                         {icon}
-                                                        <p className="uppercase text-[11px] w-[250px]">{message}</p>
+                                                        <p className="uppercase text-[var(--primary-04)] text-[11px] w-[250px]">{message}</p>
                                                         <div className="ml-auto flex gap-2 items-center">
                                                             {!showChevronDown?(
                                                                 <button onClick={()=>{
                                                                     document.getElementById(`single_${notification.message}`)?.classList.replace("py-2","py-3")
                                                                     setShowChevronDown(true)
                                                                     setMessage(<>{notification.message}</>)
-                                                                }} className="p-[5px] hover:bg-[#3c3c3c]/90 flex items-center justify-center rounded-md">
+                                                                }} className="p-[5px] hover:bg-[var(--primary-03)] flex items-center justify-center rounded-md">
                                                                     <FaChevronUp className="text-gray-400 w-[13px] h-[12px]"/>
                                                                 </button>
                                                             ):
@@ -192,7 +192,7 @@ export default function Footer(props:Props){
                                                                     document.getElementById(`single_${notification.message}`)?.classList.replace("py-3","py-2")
                                                                     setShowChevronDown(false)
                                                                     setMessage(<>{notification.message.slice(0,30)}...</>)
-                                                                }} className="p-[5px] hover:bg-[#3c3c3c]/90 flex items-center justify-center rounded-md">
+                                                                }} className="p-[5px] hover:bg-[var(--primary-03)] flex items-center justify-center rounded-md">
                                                                     <FaChevronDown className="text-gray-400 w-[13px] h-[12px]"/>
                                                                 </button>
                                                             }
@@ -200,7 +200,7 @@ export default function Footer(props:Props){
                                                                 onClick={()=>{
                                                                     props.data.showToast(`single_${notification.message}`)
                                                                 }} 
-                                                                className="p-[5px] hover:bg-[#265f5f3d] flex items-center justify-center rounded-md"
+                                                                className="p-[5px] hover:bg-[var(--primary-03)] flex items-center justify-center rounded-md"
                                                             >
                                                                 <MdClose className="text-gray-400 w-[13px] h-[12px]"/>
                                                             </button>
@@ -211,10 +211,10 @@ export default function Footer(props:Props){
                                         </AnimatePresence>
                                     </motion.div>
                                 ):
-                                    <div id="single_no_new_notifications" className="px-[12px] py-[8px] rounded-md flex items-center bg-[#3c3c3c]/70">
+                                    <div id="single_no_new_notifications" className="px-[12px] py-[8px] rounded-md flex items-center bg-[var(--primary-01)]">
                                         <p className="uppercase text-[11px]">No New Notifications</p>
                                         <div className="ml-auto flex gap-2 items-center">
-                                            <button onClick={()=>props.data.showToast("single_no_new_notifications")} className="p-[5px] hover:bg-[#3c3c3c]/90 flex items-center justify-center rounded-md">
+                                            <button onClick={()=>props.data.showToast("single_no_new_notifications")} className="p-[5px] hover:bg-[var(--primary-03)] flex items-center justify-center rounded-md">
                                                 <MdClose className="text-gray-400 w-[13px] h-[12px]"/>
                                             </button>
                                         </div>
@@ -226,7 +226,7 @@ export default function Footer(props:Props){
                         <div className="relative inline-block">
                             <div id="notification_dialog"
                             style={{boxShadow:"0px 8px 16px 0px rgba(0,0,0,0.7)"}} 
-                            className="none text-gray-300 flex flex-col rounded-md justify-center bg-[#252525] z-20 fixed right-2 bottom-8  w-[380px]"
+                            className="none text-[var(--primary-04)] flex flex-col rounded-md justify-center bg-[var(--primary-03)] z-20 fixed right-2 bottom-8  w-[380px]"
                             >
                                 {props.data.notifications.length!==0?
                                 <AnimatePresence>
@@ -234,7 +234,7 @@ export default function Footer(props:Props){
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
                                     >
-                                        <div className="px-[12px] border-b-[1px] border-[#9999991A] py-[8px] rounded-t-md flex items-center bg-[#3c3c3c]/70">
+                                        <div className="px-[12px] border-b-[1px] border-[#9999991A] py-[8px] rounded-t-md flex items-center bg-[var(--primary-01)]">
                                             <p className="uppercase text-[11px]">Notifications</p>
                                             <div className="ml-auto flex gap-2 items-center">
                                                 {showNotificationAlertBtn===true?(
@@ -242,7 +242,7 @@ export default function Footer(props:Props){
                                                         setShowNotificationAlertBtn(false)
                                                         props.data.showToast("notification_dialog")
                                                         localStorage.setItem("notification_off",JSON.stringify(false))
-                                                    }} className="p-[5px] hover:bg-[#3c3c3c]/90 flex items-center justify-center rounded-md">
+                                                    }} className="p-[5px] hover:bg-[var(--primary-03)] flex items-center justify-center rounded-md">
                                                         <MdOutlineNotifications className="text-gray-400 w-[15px] h-[15px]"/>
                                                     </button>
                                                 ):(
@@ -250,13 +250,13 @@ export default function Footer(props:Props){
                                                         setShowNotificationAlertBtn(true)
                                                         props.data.showToast("notification_dialog")
                                                         localStorage.setItem("notification_off",JSON.stringify(true))
-                                                    }} className="p-[5px] hover:bg-[#3c3c3c]/90 flex items-center justify-center rounded-md">
+                                                    }} className="p-[5px] hover:bg-[var(--primary-03)] flex items-center justify-center rounded-md">
                                                         <MdOutlineNotificationsOff className="text-gray-400 w-[15px] h-[15px]"/>
                                                     </button>
                                                 )}
 
 
-                                                <button onClick={()=>props.data.showToast("notification_dialog")} className="p-[5px] hover:bg-[#3c3c3c]/90 flex items-center justify-center rounded-md">
+                                                <button onClick={()=>props.data.showToast("notification_dialog")} className="p-[5px] hover:bg-[var(--primary-03)] flex items-center justify-center rounded-md">
                                                     <FaChevronDown className="text-gray-400 w-[13px] h-[12px]"/>
                                                 </button>
                                             </div>
@@ -302,7 +302,7 @@ export default function Footer(props:Props){
                                                     // props.data.showToast(`btn_${notification.message}`)
                                                 }} onMouseLeave={()=>{
                                                     // props.data.showToast(`btn_${notification.message}`)
-                                                }} key={notification.message} id={`bar_${notification.message}`} className="px-[12px] py-2 flex gap-2 items-center border-t-[1px] border-[#9999991A] cursor-pointer hover:bg-[#3c3c3c]/20 active:bg-[#3c3c3c]/20">
+                                                }} key={notification.message} id={`bar_${notification.message}`} className="px-[12px] py-2 flex gap-2 items-center border-t-[1px] border-[#9999991A] cursor-pointer hover:bg-[#3c3c3c]/20 text-[13px] active:bg-[#3c3c3c]/20">
                                                     {icon}
                                                     <p className="w-[250px]">{message}</p>
                                                     <div id={`btn_${notification.message}`} className="ml-auto flex gap-2 items-center">
@@ -311,7 +311,7 @@ export default function Footer(props:Props){
                                                                 document.getElementById(`bar_${notification.message}`)?.classList.replace("py-2","py-3")
                                                                 setShowChevronDown(true)
                                                                 setMessage(<>{notification.message}</>)
-                                                            }} className="p-[5px] hover:bg-[#3c3c3c]/90 flex items-center justify-center rounded-md">
+                                                            }} className="p-[5px] hover:bg-[var(--primary-01)] flex items-center justify-center rounded-md">
                                                                 <FaChevronUp className="text-gray-400 w-[13px] h-[12px]"/>
                                                             </button>
                                                         ):
@@ -319,12 +319,12 @@ export default function Footer(props:Props){
                                                                 document.getElementById(`bar_${notification.message}`)?.classList.replace("py-3","py-2")
                                                                 setShowChevronDown(false)
                                                                 setMessage(<>{notification.message.slice(0,30)}...</>)
-                                                            }} className="p-[5px] hover:bg-[#3c3c3c]/90 flex items-center justify-center rounded-md">
+                                                            }} className="p-[5px] hover:bg-[var(--primary-01)] flex items-center justify-center rounded-md">
                                                                 <FaChevronDown className="text-gray-400 w-[13px] h-[12px]"/>
                                                             </button>
                                                         }
-                                                        <button onClick={()=>props.data.showToast(`bar_${notification.message}`)} className="p-[5px] hover:bg-[#3c3c3c]/90 flex items-center justify-center rounded-md">
-                                                            <MdClose className="w-[13px] h-[12px]"/>
+                                                        <button onClick={()=>props.data.showToast(`bar_${notification.message}`)} className="p-[5px] hover:bg-[var(--primary-01)] flex items-center justify-center rounded-md">
+                                                            <MdClose className="text-gray-400 w-[13px] h-[12px]"/>
                                                         </button>
                                                     </div>
                                                 </motion.div>
@@ -333,10 +333,10 @@ export default function Footer(props:Props){
                                     </motion.div>
                                 </AnimatePresence>
                                 :
-                                    <div id="bar_no_new_notifications" className="px-[12px] py-[8px] rounded-md flex items-center bg-[#3c3c3c]/70">
+                                    <div id="bar_no_new_notifications" className="px-[12px] py-[8px] rounded-md flex items-center bg-[var(--primary-01)]">
                                         <p className="uppercase text-[11px]">No New Notifications</p>
                                         <div className="ml-auto flex gap-2 items-center">
-                                            <button onClick={()=>props.data.showToast("bar_no_new_notifications")} className="p-[5px] hover:bg-[#3c3c3c]/90 flex items-center justify-center rounded-md">
+                                            <button onClick={()=>props.data.showToast("bar_no_new_notifications")} className="p-[5px] hover:bg-[var(--primary-01)] flex items-center justify-center rounded-md">
                                                 <MdClose className="text-gray-400 w-[13px] h-[12px]"/>
                                             </button>
                                         </div>

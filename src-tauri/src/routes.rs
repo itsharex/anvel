@@ -1,3 +1,4 @@
+use actix::{Actor, StreamHandler};
 use actix_web::{
     HttpResponse,
     HttpRequest,
