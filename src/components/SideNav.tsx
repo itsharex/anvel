@@ -2,7 +2,8 @@
 import { MdEdit, MdFileOpen, MdFolder, MdMoreHoriz, MdRefresh, MdSearch } from "react-icons/md"
 import { openDialog, openFile } from "./actions"
 import { ErrorBody, Folder } from "../types/definitions"
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { GlobalContext } from "../context"
 
 type Props = {
     data:{
@@ -14,6 +15,7 @@ type Props = {
     }
 };
 function SideNav(props:Props) {
+    let { API_URL }=useContext(GlobalContext)
     let [searchView,setSearchView]=useState(false)
     let [searchError,setSearchError]=useState(<></>)
     let [searchResults,setSearchResults]=useState<Folder>({
@@ -58,7 +60,7 @@ function SideNav(props:Props) {
                         <MdSearch className="w-[18px] h-[18px]"/>
                     </button>
                     <button onClick={()=>{
-                        props.data.showSettings===false?props.data.open("http://localhost:80/api/directory_content"):props.data.getIPs("http://localhost:80/api/get_ip_address")
+                        props.data.showSettings===false?props.data.open(`${API_URL}/api/directory_content`):props.data.getIPs(`${API_URL}/api/get_ip_address`)
                     }} className="focus:ring-1 focus:ring-violet-300 rounded-sm cursor-pointer p-[4px]">
                         <MdRefresh className="w-[18px] h-[18px]"/>
                     </button>
@@ -84,9 +86,9 @@ function SideNav(props:Props) {
                                                 <button key={content.name} onClick={()=>{
                                                     if(!content.metadata.is_file){
                                                         localStorage.setItem("path",path)
-                                                        props.data.open("http://localhost:80/api/directory_content")
+                                                        props.data.open(`${API_URL}/api/directory_content`)
                                                     }else{
-                                                        openFile("http://localhost:80/api/open",path)
+                                                        openFile(`${API_URL}/api/open`,path)
                                                     }
                                                 }} className='flex w-[195px] items-center mx-[1px] px-3 py-1 cursor-pointer focus:ring-1 focus:ring-violet-300'>
                                                     <MdFileOpen className="w-[20px] h-[20px] pr-[3px]"/>
@@ -95,7 +97,7 @@ function SideNav(props:Props) {
                                             ):(
                                                 <button onClick={()=>{
                                                     localStorage.setItem("path",path)
-                                                    props.data.open("http://localhost:80/api/directory_content")
+                                                    props.data.open(`${API_URL}/api/directory_content`)
                                                 }} key={content.name} className='flex w-[195px] flex-grow items-center mx-[1px] px-3 py-1 cursor-pointer focus:ring-1 focus:ring-violet-300'>
                                                     <MdFolder className="w-[20px] h-[20px] pr-[3px]"/>
                                                     <p className='text-[11px] uppercase'>{content.name.length<20?content.name:(<>{content.name.slice(0,18)}...</>)}</p>
@@ -132,9 +134,9 @@ function SideNav(props:Props) {
                                                 <button key={content.name} onClick={()=>{
                                                     if(!content.metadata.is_file){
                                                         localStorage.setItem("path",content.path)
-                                                        props.data.open("http://localhost:80/api/directory_content")
+                                                        props.data.open(`${API_URL}/api/directory_content`)
                                                     }else{
-                                                        openFile("http://localhost:80/api/open",content.path)
+                                                        openFile(`${API_URL}/api/open`,content.path)
                                                     }
                                                 }} className='flex w-[195px] flex-grow items-center mx-[1px] px-3 py-1 cursor-pointer focus:ring-1 focus:ring-violet-300'>
                                                     <MdFileOpen className="w-[20px] h-[20px] pr-[3px]"/>
@@ -143,7 +145,7 @@ function SideNav(props:Props) {
                                             ):(
                                                 <button onClick={()=>{
                                                     localStorage.setItem("path",content.path)
-                                                    props.data.open("http://localhost:80/api/directory_content")
+                                                    props.data.open(`${API_URL}/api/directory_content`)
                                                 }} key={content.name} id='folders_{name_str}' className='flex w-[195px] flex-grow items-center mx-[1px] px-3 py-1 cursor-pointer focus:ring-1 focus:ring-violet-300'>
                                                     <MdFolder className="w-[20px] h-[20px] pr-[3px]"/>
                                                     <p className='text-[11px] uppercase'>{content.name.length<20?content.name:(<>{content.name.slice(0,18)}...</>)}</p>

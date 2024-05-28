@@ -8,9 +8,11 @@ import Layout from "./pages/Layout";
 import { useState, useEffect } from "react";
 import { UserPreference } from "./types/definitions";
 import { invoke } from "@tauri-apps/api/tauri"
-import socket from "./ws"
+import { socket } from "./ws"
+import { GlobalContext } from "./context"
 
 function App() {
+  let API_URL=`http://localhost:80`
   let [ws,setWs]=useState(null)
   let userPreference:UserPreference={
     backgroundImage:"default"
@@ -58,15 +60,17 @@ function App() {
   }
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/welcome" element={path===null?<LandingPage data={{backgroundImage}}/>:<Navigate to="/"/>} />
-        <Route path="/" element={path!==null?<Layout/>:<Navigate to="/welcome"/>}>
-          <Route index element={<Home data={{backgroundImage, changeBackground}}/>} />
-          <Route path="docs" element={<Docs />} />
-        </Route>
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
-      <OpenFolderDialog/>
+        <GlobalContext.Provider value={{ws,API_URL}}> 
+            <Routes>
+                <Route path="/welcome" element={path===null?<LandingPage data={{backgroundImage}}/>:<Navigate to="/"/>} />
+                <Route path="/" element={path!==null?<Layout/>:<Navigate to="/welcome"/>}>
+                    <Route index element={<Home data={{backgroundImage, changeBackground}}/>} />
+                    <Route path="docs" element={<Docs />} />
+                </Route>
+                <Route path="*" element={<ErrorPage />} />
+            </Routes>
+        </GlobalContext.Provider>
+        <OpenFolderDialog/>
     </BrowserRouter>
   )
 }

@@ -2,7 +2,8 @@ import { MdArrowBack, MdClose, MdContentCopy, MdDelete, MdEdit, MdFolder, MdInfo
 import Footer from "../components/Footer";
 import SideNav from "../components/SideNav";
 import TopNav from "../components/TopNav";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { GlobalContext } from "../context";
 import { ErrorBody, Folder, Configurations , Content, Notifications, ChooseBackground, NetworkInformation, SendFileInfo } from "../types/definitions"
 import { openFile } from "../components/actions";
 import { useNavigate } from "react-router-dom";
@@ -56,6 +57,7 @@ type Props={
     }
 }
 export default function Home(props:Props){
+    let { ws, API_URL }=useContext(GlobalContext)
     const navigate=useNavigate()
     let [name,setName]=useState("")
     let [counter,setCounter]=useState(0)
@@ -295,8 +297,8 @@ export default function Home(props:Props){
     }
 
     useEffect(()=>{
-        open("http://localhost:80/api/directory_content")
-        getIPs("http://localhost:80/api/get_ip_address")
+        open(`${API_URL}/api/directory_content`)
+        getIPs(`${API_URL}/api/get_ip_address`)
         setNotifications([
             {
                 priority:"not important",
@@ -341,7 +343,7 @@ export default function Home(props:Props){
                                                     newPath=path.slice(0,path?.lastIndexOf("/"))
                                                 }
                                                 localStorage.setItem("path",newPath)
-                                                open("http://localhost:80/api/directory_content")
+                                                open(`${API_URL}/api/directory_content`)
 						                        endStartRequestLoop()
                                             }} title="Previous" className="bg-[var(--primary-02)] cursor-pointer pl-[10px] pr-[3px] w-[50px] h-[35px] flex items-center">
                                                 <MdArrowBack className="w-[18px] h-[18px] mr-[5px]"/>
@@ -353,7 +355,7 @@ export default function Home(props:Props){
                                             <p className="mr-[3px] text-[13px] capitalize root_path_indicator">{name}</p>
                                             <MdClose id="folder_close_btn" className="p-[3px] none w-[22px] h-[22px] bg-[var(--primary-02)] ml-auto rounded-sm" onClick={()=>{
                                                 localStorage.setItem("path","root");
-                                                open("http://localhost:80/api/directory_content")
+                                                open(`${API_URL}/api/directory_content`)
                                             }}/>
                                         </div>
 
@@ -378,7 +380,6 @@ export default function Home(props:Props){
                                 </div>
                                 {!showSettings?(
                                     <div className="w-full flex flex-wrap mt-[35px]" style={props.data.backgroundImage!=="default"?{color:"white"}:{}} id="folder_view_body">
-                                        {console.log(folders.contents.length===0)}
                                         {folders.contents.length===0?(
                                             <div className="ml-[200px] w-full px-[25px] py-[13px]">
                                                 <p className="text-[13px] text-center text-[var(--primary-04)]" style={props.data.backgroundImage!=="default"?{color:"white"}:{}} >This folder is empty</p>
@@ -387,7 +388,7 @@ export default function Home(props:Props){
                                             <div id="test" className="ml-[200px] grid max-sm:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 w-full gap-4 px-[25px] py-[13px]">
                                                 {folders.contents.map((content)=>{
                                                     let fileIcon
-                                                    let downloadURL=`http://localhost:80/api/download/${content.path}`
+                                                    let downloadURL=`${API_URL}/api/download/${content.path}`
                                                     switch (content.metadata.file_extension) {
                                                         case "apk":
                                                             fileIcon=APK
@@ -606,9 +607,9 @@ export default function Home(props:Props){
                                                                 onDoubleClick={()=>{
                                                                     if(!content.metadata.is_file){
                                                                         localStorage.setItem("path",path)
-                                                                        open("http://localhost:80/api/directory_content")
+                                                                        open(`${API_URL}/api/directory_content`)
                                                                     }else{
-                                                                        openFile("http://localhost:80/api/open",path)
+                                                                        openFile(`${API_URL}/api/open`,path)
                                                                     }
                                                                 }}  className='flex flex-col items-center justify-center text-[12px] max-w-[150px] focus:bg-[var(--primary-03)] dropdown_btn'>
                                                                 {content.metadata.is_file?(<img src={fileIcon} alt='file' className='w-[55px] h-[55px]'/>):(<img src={FolderImage} alt='folder' className='w-[65px] h-[65px]'/>)}
@@ -624,10 +625,10 @@ export default function Home(props:Props){
                                                                 <div>
                                                                     <div onClick={()=>{
                                                                         if(content.metadata.is_file){
-                                                                            openFile("http://localhost:80/api/open",path)
+                                                                            openFile(`${API_URL}/api/open`,path)
                                                                         }else{
                                                                             localStorage.setItem("path",path)
-                                                                            open("http://localhost:80/api/directory_content")
+                                                                            open(`${API_URL}/api/directory_content`)
                                                                         }
                                                                     }} className='px-[12px] py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35 {name_str}_open_item'>
                                                                         <MdOpenInNew className="w-[25px] h-[25px] pr-[6px]"/>
@@ -655,7 +656,7 @@ export default function Home(props:Props){
                                                                                     path,
                                                                                     recipient_server:`http://${configurations.recipient_ip}:80/api/receive`
                                                                                 };
-                                                                                sendFile("http://localhost:80/api/send",sendFileInfo)
+                                                                                sendFile(`${API_URL}/api/send`,sendFileInfo)
                                                                             }
                                                                         }} className='px-[12px] w-full py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35 {name_str}_open_item'>
                                                                             <MdSend className="w-[25px] h-[25px] pr-[6px]"/>
