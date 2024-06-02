@@ -20,10 +20,12 @@
   -moz-osx-font-smoothing: grayscale;
   color-scheme: light dark;
 
-  --primary-01:light-dark(#fff,#3c3c3c);
+  --primary-01:light-dark(#fff,#252525);
   --primary-02:light-dark(#f2f2f2,#151515);
   --primary-03:light-dark(#f3f3f3,#252525);
   --primary-04:light-dark(black,white);
+  --primary-05:light-dark(#c2dcef4d,#3c3c3c);
+  --primary-06:light-dark(#f2f2f2,#252525);
 
   --theme-dark: white;
   --hover-gray:#3c3c3c;
@@ -44,7 +46,7 @@
   position: absolute;
   color: var(--primary-04);
   font-size: 13px;
-  background: var(--primary-02);
+  background: var(--primary-06);
   border-radius: 4px;
   min-width: 180px;
   overflow: auto;

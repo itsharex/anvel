@@ -638,7 +638,7 @@ export default function Home(props:Props){
                                                                     }else{
                                                                         openFile(`${API_URL}/api/open`,path)
                                                                     }
-                                                                }}  className='flex flex-col items-center justify-center text-[12px] max-w-[150px] focus:bg-blue-100 hover:bg-blue-50 dropdown_btn'>
+                                                                }}  className='flex flex-col items-center justify-center text-[12px] max-w-[150px] focus:bg-[var(--primary-05)] hover:bg-[var(--primary-05)] dropdown_btn'>
                                                                 {content.metadata.is_file?(<img src={fileIcon} alt='file' className={fileIcon!==downloadURL?'w-[55px] h-[55px]':"w-[75px] h-[60px] object-cover"}/>):(<img src={FolderImage} alt='folder' className='w-[65px] h-[65px]'/>)}
                                                                 <div className='flex justify-center'>
                                                                     {content.name.length<30?(

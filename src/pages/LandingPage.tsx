@@ -25,7 +25,8 @@ export default function LandingPage(props:Props){
                 <p className="font-semibold text-2xl text-center">Welcome to Anvel ! </p>
                 <div className="mt-4 lg:w-[40vw] md:w-[60vw] max-md:px-[10vw] text-[14px]">
                     <p>
-                        Anvel is a file sharing program. This program was developed to assist you to share files with collegues on your local network. 
+                        Anvel is an open-source, cross platform program that lets people share files and folders.
+                        This program enables you to share files with collegues on your local network. 
                     </p>
                     <div className="mt-8 w-full">
                         <div className="flex items-center justify-center gap-2">
@@ -33,7 +34,7 @@ export default function LandingPage(props:Props){
                                 <button onClick={()=>{
                                     localStorage.setItem("path","home")
                                     window.location.reload()
-                                }} className="flex gap-2 text-[var(--primary-text-color)] flex-grow items-center justify-center h-[35px] w-fit px-[20px] font-semibold rounded-sm bg-[#EDFFA5]">
+                                }} className="flex gap-2 text-[#252525] flex-grow items-center justify-center h-[35px] w-fit px-[20px] font-semibold rounded-sm bg-[#EDFFA5]">
                                     <span>Quick Start</span>
                                     <MdArrowForward className="w-[15px] h-[15px]"/>
                                 </button>
@@ -41,12 +42,12 @@ export default function LandingPage(props:Props){
                                 <button onClick={()=>{
                                     localStorage.setItem("path",previous)
                                     window.location.reload()
-                                }} className="flex gap-2 text-[var(--primary-text-color)] flex-grow items-center justify-center h-[35px] w-fit font-semibold px-[20px] rounded-sm bg-[#EDFFA5]">
+                                }} className="flex gap-2 text-[#252525] flex-grow items-center justify-center h-[35px] w-fit font-semibold px-[20px] rounded-sm bg-[#EDFFA5]">
                                     <MdRefresh className="w-[20px] h-[20px]"/>
                                     <span>Open Recent Folder</span>
                                 </button>
                             )}
-                            <button onClick={()=>openDialog("open_folder_dialog")} className="flex gap-2 text-[var(--primary-text-color)] flex-grow items-center justify-center h-[35px] w-fit px-[20px] rounded-sm bg-[#EDFFA5] font-semibold">
+                            <button onClick={()=>openDialog("open_folder_dialog")} className="flex gap-2 text-[#252525] flex-grow items-center justify-center h-[35px] w-fit px-[20px] rounded-sm bg-[#EDFFA5] font-semibold">
                                 <MdFolder className="w-[20px] h-[20px]"/>
                                 <span>Open Folder</span>
                             </button>
