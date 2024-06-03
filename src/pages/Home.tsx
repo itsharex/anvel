@@ -667,12 +667,6 @@ export default function Home(props:Props){
                                                                         <MdContentCopy className="w-[25px] h-[25px] pr-[6px]"/>
                                                                         <p>Copy Path</p>
                                                                     </button>
-                                                                    <button onClick={()=>{
-                                                                        navigator.clipboard.writeText(path)
-                                                                    }} className='px-[12px] w-full py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35 {name_str}_open_item'>
-                                                                        <MdEdit className="w-[25px] h-[25px] pr-[6px]"/>
-                                                                        <p>Rename</p>
-                                                                    </button>
                                                                     {content.metadata.is_file&&localStorage.getItem("path")!=="shared"?(
                                                                         <div onClick={()=>{
                                                                             if(configurations.recipient_ip.length===0){
@@ -695,15 +689,9 @@ export default function Home(props:Props){
                                                                         </div>
                                                                     ):""}
                                                                     <button onClick={()=>{
-                                                                        navigator.clipboard.writeText(path)
-                                                                    }} className='px-[12px] w-full py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35 {name_str}_open_item'>
-                                                                        <MdDelete className="w-[25px] h-[25px] pr-[6px]"/>
-                                                                        <p>Delete</p>
-                                                                    </button>
-                                                                    <button onClick={()=>{
                                                                         toggleDialog(`file_info_dialog`)
                                                                         setInfoContent(content)
-                                                                    }} className='px-[12px] w-full py-[8px] flex items-center border-t-[1px] border-[#9999991A] cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35'>
+                                                                    }} className='px-[12px] w-full py-[8px] flex items-center border-t-[1px] border-[#9999991A] hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35'>
                                                                         <MdInfoOutline className="w-[25px] h-[25px] pr-[6px]"/>
                                                                         <p>Properties</p>
                                                                     </button>
