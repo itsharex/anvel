@@ -1,6 +1,6 @@
 // @flow strict
 import { MdEdit, MdFileOpen, MdFolder, MdMoreHoriz, MdRefresh, MdSearch } from "react-icons/md"
-import { openDialog, openFile } from "./actions"
+import { openDialog, createWindow } from "./actions"
 import { ErrorBody, Folder } from "../types/definitions"
 import { useState, useContext } from "react";
 import { GlobalContext } from "../context"
@@ -75,11 +75,19 @@ function SideNav(props:Props) {
                         <div id="folders" className="sidebar_folders overflow-y-auto pb-[33px] pt-1 h-screen">
                             <div className="flex flex-col">
                                 {props.data.folders?props.data.folders.contents.map(content=>{
-			    	   let path=content.path
-		         	   if(path.includes("\\")){
-			              // Replace backslashes with forward slashes
-            			      path = path.replace(/\\/g, "/")
-        			    }
+			    	                let path=content.path
+		         	                if(path.includes("\\")){
+			                            // Replace backslashes with forward slashes
+            			                path = path.replace(/\\/g, "/")
+        			                }
+
+                                    let label=content.name
+                                    if(label.includes(" ")){
+                                        label=label.replace(/ /g,"_")
+                                        if(label.includes(".")){
+                                            label=label.replace(/./g,"_")
+                                        }
+                                    }
                                     return(
                                         <div className="flex-grow" key={content.name} title={content.name}>
                                             {content.metadata.is_file?(
@@ -88,7 +96,8 @@ function SideNav(props:Props) {
                                                         localStorage.setItem("path",path)
                                                         props.data.open(`${API_URL}/api/directory_content`)
                                                     }else{
-                                                        openFile(`${API_URL}/api/open`,path)
+                                                        createWindow(`file://${path}`,label)
+                                                        //openFile(`${API_URL}/api/open`,path)
                                                     }
                                                 }} className='flex w-[195px] items-center mx-[1px] px-3 py-1 cursor-pointer focus:ring-1 focus:ring-violet-300'>
                                                     <MdFileOpen className="w-[20px] h-[20px] pr-[3px]"/>
@@ -127,16 +136,30 @@ function SideNav(props:Props) {
                         </div>
                         <div id="folders" className="sidebar_folders overflow-y-auto pb-[33px] pt-1 h-screen">
                             <div className="flex flex-col">
-                                {searchResults.contents.length!==0?searchResults.contents.map((content)=>{
-                                    return(
+                                {searchResults.contents.length!==0?searchResults.contents.map(content=>{
+                                    let path=content.path
+                                    if(path.includes("\\")){
+                                        // Replace backslashes with forward slashes
+                                        path = path.replace(/\\/g, "/")
+                                    }
+
+                                    let label=content.name
+                                    if(label.includes(" ")){
+                                        label=label.replace(/ /g,"_")
+                                        if(label.includes(".")){
+                                            label=label.replace(/./g,"_")
+                                        }
+                                    }
+                                   return(
                                         <div className="flex-grow" key={content.name} title={content.name}>
                                             {content.metadata.is_file?(
                                                 <button key={content.name} onClick={()=>{
                                                     if(!content.metadata.is_file){
-                                                        localStorage.setItem("path",content.path)
+                                                        localStorage.setItem("path",path)
                                                         props.data.open(`${API_URL}/api/directory_content`)
                                                     }else{
-                                                        openFile(`${API_URL}/api/open`,content.path)
+                                                        createWindow(`file://${path}`,label)
+                                                        //openFile(`${API_URL}/api/open`,content.path)
                                                     }
                                                 }} className='flex w-[195px] flex-grow items-center mx-[1px] px-3 py-1 cursor-pointer focus:ring-1 focus:ring-violet-300'>
                                                     <MdFileOpen className="w-[20px] h-[20px] pr-[3px]"/>
@@ -144,7 +167,7 @@ function SideNav(props:Props) {
                                                 </button>
                                             ):(
                                                 <button onClick={()=>{
-                                                    localStorage.setItem("path",content.path)
+                                                    localStorage.setItem("path",path)
                                                     props.data.open(`${API_URL}/api/directory_content`)
                                                 }} key={content.name} id='folders_{name_str}' className='flex w-[195px] flex-grow items-center mx-[1px] px-3 py-1 cursor-pointer focus:ring-1 focus:ring-violet-300'>
                                                     <MdFolder className="w-[20px] h-[20px] pr-[3px]"/>

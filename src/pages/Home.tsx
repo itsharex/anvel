@@ -413,7 +413,7 @@ export default function Home(props:Props){
                                             </div>
                                         ):(
                                             <div id="test" className="ml-[200px] grid max-sm:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 w-full gap-4 px-[25px] py-[13px]">
-                                                {folders.contents.map((content,index)=>{
+                                                {folders.contents.map(content=>{
                                                     let fileIcon
                                                     let downloadURL=`${API_URL}/api/download/${content.path}`
                                                     switch (content.metadata.file_extension) {
@@ -619,11 +619,20 @@ export default function Home(props:Props){
                                                             fileIcon=unknownFile
                                                             break;
                                                     }
+
                                                     let path=content.path
                                                     if(path.includes("\\")){
                                                         // Replace backslashes with forward slashes
                                                         path = path.replace(/\\/g, "/")
                                                     }	
+
+                                                    let label=content.name
+                                                    if(label.includes(" ")){
+                                                        label=label.replace(/ /g,"_")
+                                                        if(label.includes(".")){
+                                                            label=label.replace(/./g,"_")
+                                                        }
+                                                    }
                                                     return(
                                                         <div key={content.name} className="flex flex-col items-center text-center">
                                                             <button id={content.name} title={content.name}
@@ -636,7 +645,7 @@ export default function Home(props:Props){
                                                                         localStorage.setItem("path",path)
                                                                         open(`${API_URL}/api/directory_content`)
                                                                     }else{
-                                                                        createWindow(downloadURL,`new_window_${index}`)
+                                                                        createWindow(`file://${path}`,label)
                                                                         //openFile(`${API_URL}/api/open`,path)
                                                                     }
                                                                 }}  className='flex flex-col items-center justify-center text-[12px] max-w-[150px] focus:bg-[var(--primary-05)] hover:bg-[var(--primary-05)] dropdown_btn'>
@@ -653,7 +662,7 @@ export default function Home(props:Props){
                                                                 <div>
                                                                     <div onClick={()=>{
                                                                         if(content.metadata.is_file){
-                                                                            createWindow(downloadURL,`new_window_${index}`)
+                                                                            createWindow(`file://${path}`,label)
                                                                             //openFile(`${API_URL}/api/open`,path)
                                                                         }else{
                                                                             localStorage.setItem("path",path)
@@ -663,6 +672,13 @@ export default function Home(props:Props){
                                                                         <MdOpenInNew className="w-[25px] h-[25px] pr-[6px]"/>
                                                                         <p>Open</p>
                                                                     </div>
+                                                                    {content.metadata.is_file?(<div onClick={()=>{
+                                                                        openFile(`${API_URL}/api/open`,path)
+                                                                    }} className='px-[12px] py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35 {name_str}_open_item'>
+                                                                        <MdOpenInNew className="w-[25px] h-[25px] pr-[6px]"/>
+                                                                        <p>Open with default app</p>
+                                                                    </div>):""}
+
                                                                     <button onClick={()=>{
                                                                         navigator.clipboard.writeText(path)
                                                                     }} className='px-[12px] w-full py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35 {name_str}_open_item'>

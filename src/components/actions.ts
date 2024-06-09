@@ -13,7 +13,8 @@ export function createWindow(url:string, label:string){
     })
     webview.once('tauri://error', async function (e:any) {
         // an error occurred during webview window creation
-        await message(`${e.payload}`,{title:`Error`,type:"error"})
+        let errorMessage=e.payload.includes(`${label}`)?`A window showing media '${url}' is running.`:`${e.payload}`
+        await message(errorMessage,{title:`Error`,type:"error"})
         console.log("error open window",e)
     })
 }
