@@ -342,7 +342,7 @@ pub async fn get_ip_address()-> impl Responder {
         };
     }else {
         let err_message=ErrorMessage{
-            message: "Connect to a wifi or hotspot".to_string()
+            message: "Searching for network information failed".to_string()
         };
         return HttpResponse::InternalServerError().json(err_message);
     }

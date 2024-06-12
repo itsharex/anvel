@@ -1,5 +1,5 @@
 import { message } from "@tauri-apps/api/dialog";
-import { MdArrowBack, MdClose, MdContentCopy, MdFolder, MdInfoOutline, MdOpenInNew, MdSend, MdSettings } from "react-icons/md";
+import { MdArrowBack, MdClose, MdContentCopy, MdFolder, MdRefresh, MdInfoOutline, MdOpenInNew, MdSend, MdSettings } from "react-icons/md";
 import Footer from "../components/Footer";
 import SideNav from "../components/SideNav";
 import TopNav from "../components/TopNav";
@@ -739,10 +739,22 @@ export default function Home(props:Props){
                                                     <div>
                                                         <div className="flex flex-col gap-2 my-2">
                                                             {isLoadingNetInfo?(
-                                                                <i className="text-sm">Getting Network Information...</i>
+                                                                <div className="flex gap-2  items-center w-fit justify-center">
+                                                                    <div className="flex items-center justify-center w-[18px] h-[18px]">
+                                                                        <MdRefresh className="text-[14px]"/>
+                                                                    </div>
+                                                                    <i className="text-[14px]">Searching for network information...</i>
+                                                                </div>
                                                             ):(
                                                                 <>
-                                                                    {networkInformation.internal.length===0?(<p className="text-[14px] text-red-600">{error.message}...</p>):(
+                                                                    {networkInformation.internal.length===0?(
+                                                                        <div className="flex gap-2  items-center w-fit justify-center">
+                                                                            <div className="flex items-center justify-center w-[18px] h-[18px] bg-red-600 rounded-[50px] text-white">
+                                                                                <MdClose className="text-[14px]"/>
+                                                                            </div>
+                                                                        <p className="text-[14px]">{error.message}</p>
+                                                                        </div>
+                                                                    ):(
                                                                         <>
                                                                             <div className="grid grid-cols-4 gap-10">
                                                                                 <p>Internet Protocol (IP)</p>
