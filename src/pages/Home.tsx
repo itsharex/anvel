@@ -647,7 +647,7 @@ export default function Home(props:Props){
                                                                     }else{
                                                                         if(browserSupportedFiles(content.metadata.file_extension)){
                                                                             path.includes("#")?path=path.replace(/#/g,"%23"):path;
-                                                                            createWindow(`file://${path}`,label)
+                                                                            createWindow(`file://${path}`,label,content.name)
                                                                         }else{
                                                                             openFile(`${API_URL}/api/open`,path)
                                                                         }
@@ -668,7 +668,7 @@ export default function Home(props:Props){
                                                                         if(content.metadata.is_file){
                                                                             if(browserSupportedFiles(content.metadata.file_extension)){
                                                                                 path.includes("#")?path=path.replace(/#/g,"%23"):path;
-                                                                                createWindow(`file://${path}`,label)
+                                                                                createWindow(`file://${path}`,label,content.name)
                                                                             }else{
                                                                                 openFile(`${API_URL}/api/open`,path)
                                                                             }

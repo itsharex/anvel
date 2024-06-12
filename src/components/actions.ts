@@ -1,22 +1,15 @@
 import { WebviewWindow } from '@tauri-apps/api/window'
+import { invoke } from "@tauri-apps/api/tauri";
 import { message } from "@tauri-apps/api/dialog";
 
-export function createWindow(url:string, label:string){
-    const webview = new WebviewWindow(label, {
-        url,
-    })
-    // since the webview window is created asynchronously,
-    // Tauri emits the `tauri://created` and `tauri://error` to notify you of the creation response
-    webview.once('tauri://created', function () {
-        // webview window successfully created
-        console.log("success open window")
-    })
-    webview.once('tauri://error', async function (e:any) {
-        // an error occurred during webview window creation
-        let errorMessage=e.payload.includes(`${label}`)?`A window showing media '${url}' is running.`:`${e.payload}`
+export async function createWindow(filePath:string, label:string, title:string){
+    try{
+        await invoke("open_window", { filePath, label, title })
+    }catch(error:any){
+        let errorMessage=error.message
+        console.log(error)
         await message(errorMessage,{title:`Error`,type:"error"})
-        console.log("error open window",e)
-    })
+    }
 }
 
 export function browserSupportedFiles(extension:string){
