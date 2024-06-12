@@ -748,11 +748,17 @@ export default function Home(props:Props){
                                                             ):(
                                                                 <>
                                                                     {networkInformation.internal.length===0?(
-                                                                        <div className="flex gap-2  items-center w-fit justify-center">
-                                                                            <div className="flex items-center justify-center w-[18px] h-[18px] bg-red-600 rounded-[50px] text-white">
-                                                                                <MdClose className="text-[14px]"/>
+                                                                        <div className="flex flex-col gap-y-4">
+                                                                            <div className="flex gap-2  items-center w-fit justify-center">
+                                                                                <div className="flex items-center justify-center w-[18px] h-[18px] bg-red-600 rounded-[50px] text-white">
+                                                                                    <MdClose className="text-[14px]"/>
+                                                                                </div>
+                                                                                <p className="text-[14px]">{error.message}</p>
                                                                             </div>
-                                                                        <p className="text-[14px]">{error.message}</p>
+                                                                            <button onClick={()=>{
+                                                                                getIPs(`${API_URL}/api/get_ip_address`)
+                                                                            }} className="flex items-center justify-center h-[30px] w-[120px] text-[13px] bg-[var(--primary-02)] border-none">Try again</button>
+
                                                                         </div>
                                                                     ):(
                                                                         <>
