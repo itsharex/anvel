@@ -4,7 +4,8 @@ import { message } from "@tauri-apps/api/dialog";
 
 export async function createWindow(filePath:string, label:string, title:string){
     try{
-        await invoke("open_window", { filePath, label, title })
+        let open=await invoke("open_window", { filePath, label, title })
+        console.log(open)
     }catch(error:any){
         let errorMessage=error.message
         console.log(error)

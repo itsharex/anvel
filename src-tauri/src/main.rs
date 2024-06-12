@@ -118,7 +118,10 @@ async fn open_window(app: tauri::AppHandle, file_path:&str, label:&str, title:&s
     .build();
 
     match window {
-        Ok(v)=>{
+        Ok(_)=>{
+            "Window open successful".to_string()
+        },
+        Err(e)=>{
             match v.get_window(label).unwrap().close() {
                 Ok(_)=>{
                     match tauri::WindowBuilder::new(
@@ -136,9 +139,8 @@ async fn open_window(app: tauri::AppHandle, file_path:&str, label:&str, title:&s
                 },
                 Err(e)=>format!("{}",e)
             };
-            "Window open successful".to_string()
-        },
-        Err(e)=>format!("{}",e)
+            format!("{}",e)
+        }
     };
 
     Ok("window function done".to_string())
