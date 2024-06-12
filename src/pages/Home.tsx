@@ -731,7 +731,7 @@ export default function Home(props:Props){
                                     </div>
                                 ):(
                                     <div  style={props.data.backgroundImage!=="default"?{color:"white"}:{}} className="w-full flex flex-wrap mt-[35px] text-[var(--primary-04)]" id="settings_view">
-                                        <div className="ml-[200px] flex flex-col w-full gap-x-4 gap-y-12 px-[25px] py-[13px]">
+                                        <div className="ml-[200px] flex flex-col w-full gap-x-4 gap-y-12 px-[25px] pt-[13px] pb-[50px]">
 
                                             <div>
                                                 <p className="text-lg font-semibold mb-2">Network Information</p>
@@ -813,6 +813,7 @@ export default function Home(props:Props){
                                                     </div>):""}
                                                 </div>
                                             </div>
+
                                             <div>
                                                 <p className="font-semibold text-lg mb-2">User Preference</p>
                                                 <div className="flex flex-col">
@@ -833,6 +834,17 @@ export default function Home(props:Props){
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div>
+                                                <p>Have a question?</p>
+                                                <a href="https://github.com/imrany/anvel" target="_blank" rel="noopener noreferrer" className="text-[14px] text-blue-500 hover:text-gray-600 active:text-gray-600">Get help</a>
+                                            </div>
+
+                                            <div>
+                                                <p>Help improve Anvel</p>
+                                                <a href="mailto:imranmat254@gmail.com" target="_blank" rel="noopener noreferrer" className="text-[14px] text-blue-500 hover:text-gray-600 active:text-gray-600">Give us feedback</a>
+                                            </div>
+
                                         </div>
                                     </div>
                                 )}
