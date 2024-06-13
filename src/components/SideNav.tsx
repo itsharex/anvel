@@ -81,7 +81,8 @@ function SideNav(props:Props) {
             			                path = path.replace(/\\/g, "/")
         			                }
 
-                                    let label=content.name
+                                    let unique_media=["MP3","MP4"];
+                                    let label=unique_media.includes(content.metadata.file_extension.toUpperCase())?content.metadata.file_extension:content.name
                                     if(label.includes(" ")||label.includes(".")){
                                         label=label.replace(/ /g,"_")
                                         if(label.includes(".")){
@@ -146,7 +147,8 @@ function SideNav(props:Props) {
                                         path = path.replace(/\\/g, "/")
                                     }
 
-                                    let label=content.name
+                                    let unique_media=["MP3","MP4"];
+                                    let label=unique_media.includes(content.metadata.file_extension.toUpperCase())?content.metadata.file_extension:content.name
                                     if(label.includes(" ")||label.includes(".")){
                                         label=label.replace(/ /g,"_")
                                         if(label.includes(".")){
