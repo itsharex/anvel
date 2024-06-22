@@ -31,7 +31,16 @@
   --hover-gray:#3c3c3c;
   --theme-gray:#1d1d1d;
 
-  --theme-yellow:#e0ff72;
+  --yellow-primary-01:#e0ff72;
+  --yellow-primary-02:#EDFFA5;
+  --yellow-primary-03:#EDFFA1;
+
+  /*Color themes*/
+  --purple-primary-01:#9333ea;
+  --orange-primary-01:#ea580c;
+  --red-primary-01:#dc2626;
+  --pink-primary-01:#db2777;
+
 }
 
 .dropdown {

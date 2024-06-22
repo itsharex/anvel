@@ -54,7 +54,7 @@ export function FileInfoDialog(props:Props){
                             </button>
                         </div>
                         <div className="flex justify-end items-center">
-                            <button onClick={()=>props.data.functions.toggleDialog(`file_info_dialog`)} className="mr-[12px] py-[4px] px-[16px] hover:bg-[#EDFFA1] border-none h-[28px] w-[100px] text-[13px] text-[#1D1D1D] rounded-sm bg-[#EDFFA5]">
+                            <button onClick={()=>props.data.functions.toggleDialog(`file_info_dialog`)} className="mr-[12px] py-[4px] px-[16px] hover:bg-[var(--yellow-primary-02)] border-none h-[28px] w-[100px] text-[13px] text-[#1D1D1D] rounded-sm bg-[var(--yellow-primary-01)]">
                                 Close
                             </button>
                         </div>

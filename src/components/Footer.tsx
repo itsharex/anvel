@@ -51,7 +51,7 @@ export default function Footer(props:Props){
         hideSingleNotifications()
     },[showNotificationAlertBtn])
     return(
-        <footer className="fixed bottom-0 h-[26px] bg-[#e0ff72] text-[#252525]  left-0 right-0">
+        <footer className="fixed bottom-0 h-[26px] bg-[var(--yellow-primary-01)] text-[#252525]  left-0 right-0">
             <div className="flex">
                 {/* <p className="px-[5px] py-[2px] text-[13px]">anvel</p> */}
                

@@ -13,7 +13,7 @@ import { GlobalContext } from "./context"
 
 function App() {
   let API_URL=`http://localhost:80`
-      let [ws,setWs]=useState<any>(null)
+  let [ws,setWs]=useState<any>(null)
   let userPreference:UserPreference={
     backgroundImage:"default"
   }

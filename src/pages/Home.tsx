@@ -45,7 +45,6 @@ import JS from "../assets/icons/filetype/application-javascript.svg"
 import SQL from "../assets/icons/filetype/application-sql.svg"
 import DEB from "../assets/icons/filetype/application-x-deb.svg"
 import LNK from "../assets/icons/filetype/libreoffice-oasis-web-template.svg"
-
 import FolderImage from "../assets/icons/folder.png";
 import bg1 from "../assets/background/bg_1.png";
 import { FileInfoDialog } from "../components/dialogs";
@@ -57,6 +56,7 @@ type Props={
         changeBackground:any
     }
 }
+
 export default function Home(props:Props){
     let { API_URL }=useContext(GlobalContext)
     const navigate=useNavigate()
@@ -66,6 +66,7 @@ export default function Home(props:Props){
     let [loadingText,setLoadingText]=useState("Loading...")
     let [isLoadingNetInfo,setIsLoadingNetInfo]=useState(true)
     let [isDisabled,setIsDisabled]=useState(false)
+    let [backgroundOption,setBackgroundOption]=useState("")
     let [infoContent,setInfoContent]=useState<Content>({
         name:"",
         root:"",
@@ -348,7 +349,7 @@ export default function Home(props:Props){
                     <p className="text-lg">{loadingText}</p>
                 </div>
             ):(
-                <div style={props.data.backgroundImage!=="default"?{background: `linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('${props.data.backgroundImage}') top no-repeat`, backgroundSize:"cover", backgroundAttachment:"fixed"}:{background: "var(--primary-01)"}} className="min-h-[100vh]">
+            <div style={!props.data.backgroundImage.includes("primary-01")&&props.data.backgroundImage!=="default"?{background: `linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('${props.data.backgroundImage}') top no-repeat`, backgroundSize:"cover", backgroundAttachment:"fixed"}:props.data.backgroundImage==="default"?{background: "var(--primary-01)"}:{background: `var(--${props.data.backgroundImage})`}} className="min-h-[100vh]">
                     <TopNav data={{name, handleShowSettings, settingsHeader, showToast}}/>
                     <div className="flex">
                         <SideNav data={{folders,error,open, getIPs, showSettings}}/>
@@ -758,7 +759,7 @@ export default function Home(props:Props){
                                                                             </div>
                                                                             <button onClick={()=>{
                                                                                 getIPs(`${API_URL}/api/get_ip_address`)
-                                                                            }} className="flex items-center justify-center h-[30px] w-[120px] text-[13px] bg-[var(--primary-02)] border-none">Try again</button>
+                                                                            }} className="flex items-center justify-center h-[30px] w-[120px] text-[13px] bg-[var(--primary-02)] border-none" style={props.data.backgroundImage!=="default"?{color:"black"}:{}}>Try again</button>
 
                                                                         </div>
                                                                     ):(
@@ -804,7 +805,7 @@ export default function Home(props:Props){
                                                                 <input disabled id="both_folder_and_file" name="both_folder_and_file" checked type="checkbox" className="h-[20px] w-[20px] cursor-pointer rounded-md bg-transparent focus:outline-none checked:bg-violet-300 focus:ring-1 focus:ring-violet-300" />
                                                             </div>
                                                             {configurations.recipient_ip.length===0?(
-                                                                <button disabled={isDisabled} className={!isDisabled?"py-1 px-[16px] hover:bg-[#EDFFA1] border-none w-[100px] text-black rounded-sm bg-[var(--theme-yellow)]":"py-1 px-[16px] cursor-wait bg-[#EDFFA1] border-none w-[100px] text-black rounded-sm"}>
+                                                                <button disabled={isDisabled} className={!isDisabled?"py-1 px-[16px] hover:bg-[var(--yellow-primary-02)] border-none w-[100px] text-black rounded-sm bg-[var(--yellow-primary-01)]":"py-1 px-[16px] cursor-wait bg-[var(--yellow-primary-02)] border-none w-[100px] text-black rounded-sm"}>
                                                                     Ping
                                                                 </button>
                                                             ):(
@@ -812,7 +813,7 @@ export default function Home(props:Props){
                                                                     setConfigurations({
                                                                         recipient_ip:""
                                                                     })
-                                                                }} className="py-1 px-[16px] hover:bg-[#EDFFA1] border-none w-[100px] rounded-sm text-black bg-[var(--theme-yellow)]">
+                                                                }} className="py-1 px-[16px] hover:bg-[var(--yellow-primary-02)] border-none w-[100px] rounded-sm text-black bg-[var(--yellow-primary-01)]">
                                                                     Change
                                                                 </button>
                                                             )}
@@ -824,21 +825,47 @@ export default function Home(props:Props){
                                             <div>
                                                 <p className="font-semibold text-lg mb-2">User Preference</p>
                                                 <div className="flex flex-col">
-                                                    <p>Choose Background image</p>
-                                                    <div className="flex max-sm:flex-col gap-2 my-2">
-                                                        <button onClick={()=>props.data.changeBackground("default")} style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)"}} className="bg-[var(--primary-01)] flex justify-center items-center rounded-md h-[200px] w-[240px]">
-                                                            <p  style={props.data.backgroundImage!=="default"?{color:"black"}:{}} className="text-base">Default</p>
-                                                        </button>
-                                                        <div className="flex max-sm:flex-col gap-2">
-                                                            {chooseBackground.map((choice)=>{
-                                                                return(
-                                                                    <button key={choice.name} onClick={()=>props.data.changeBackground(choice.image)} style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)",background: `linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url('${choice.image}') center no-repeat`, backgroundSize:"cover"}} className={`hover:text-white flex justify-center items-center rounded-md h-[200px] w-[240px]`}>
-                                                                        <p className="text-base text-gray-100">{choice.name}</p>
-                                                                    </button>
-                                                                )
-                                                            })}
-                                                        </div>
-                                                    </div>
+                                                    <p>Background</p>
+                                                    <select style={props.data.backgroundImage!=="default"?{color:"black"}:{}} className="mt-2 active:outline-none focus:outline-none mb-4 w-[250px] border-[1px] p-[6px]" onChange={(e)=>setBackgroundOption(e.target.value)}>
+                                                        <option value="Picture">Picture</option>
+                                                        <option value="Solid color">Solid color</option>
+                                                    </select>
+                                                    {backgroundOption==="Picture"?(
+                                                        <>
+                                                            <p>Choose your picture</p>
+                                                            <div className="flex max-sm:flex-col gap-2 my-2">
+                                                                <button onClick={()=>props.data.changeBackground("default")} style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)"}} className="bg-[var(--primary-01)] flex justify-center items-center rounded-md h-[200px] w-[240px]">
+                                                                    <p  style={props.data.backgroundImage!=="default"?{color:"black"}:{}} className="text-base">Default</p>
+                                                                </button>
+                                                                <div className="flex max-sm:flex-col gap-2">
+                                                                    {chooseBackground.map((choice)=>{
+                                                                        return(
+                                                                            <button key={choice.name} onClick={()=>props.data.changeBackground(choice.image)} style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)",background: `linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url('${choice.image}') center no-repeat`, backgroundSize:"cover"}} className={`hover:text-white flex justify-center items-center rounded-md h-[200px] w-[240px]`}>
+                                                                                <p className="text-base text-gray-100">{choice.name}</p>
+                                                                            </button>
+                                                                        )
+                                                                    })}
+                                                                </div>
+                                                            </div>
+                                                        </>
+                                                    ):(
+                                                        <>
+                                                            <p>Choose your background color</p>
+                                                            <div className="grid grid-cols-8 w-fit max-sm:grid-cols-1 gap-1 my-2">
+                                                                <button onClick={()=>props.data.changeBackground("default")} className="bg-white flex justify-center items-center h-[40px] w-[40px]" style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.1)"}}>
+                                                                </button>
+                                                                <button onClick={()=>props.data.changeBackground("purple-primary-01")} className="bg-purple-600 flex justify-center items-center h-[40px] w-[40px]" style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.1)"}}>
+                                                                </button>
+                                                                <button onClick={()=>props.data.changeBackground("orange-primary-01")} className="bg-orange-600 flex justify-center items-center h-[40px] w-[40px]" style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.1)"}}>
+                                                                </button>
+                                                                <button onClick={()=>props.data.changeBackground("red-primary-01")} className="bg-red-600 flex justify-center items-center h-[40px] w-[40px]" style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.1)"}}>
+                                                                </button>
+                                                                <button onClick={()=>props.data.changeBackground("pink-primary-01")} className="bg-pink-600 flex justify-center items-center h-[40px] w-[40px]" style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.1)"}}>
+                                                                </button>
+
+                                                            </div>
+                                                        </>
+                                                    )}
                                                 </div>
                                             </div>
 
