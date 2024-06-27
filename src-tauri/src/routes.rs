@@ -199,7 +199,7 @@ pub async fn download(req: HttpRequest) -> Result<NamedFile> {
 #[get("/ping/{sender_ip}")]
 pub async fn ping(sender_ip: web::Path<String>)->HttpResponse{
     let resp=Client::new()
-        .get(format!("http://{sender_ip}:80/api/pong/{sender_ip}"))
+        .get(format!("http://{sender_ip}:80/api/pong/{}",local_ip().unwrap()))
         .send()
         .await;
     match resp {
@@ -221,11 +221,11 @@ pub async fn ping(sender_ip: web::Path<String>)->HttpResponse{
     }
 }
 
-#[get("/pong/{sender_ip}")]
-pub async fn pong(sender_ip: web::Path<String>)->HttpResponse{
+#[get("/pong/{recipient_ip}")]
+pub async fn pong(recipient_ip: web::Path<String>)->HttpResponse{
     Notification::new()
         .summary("Anvel - Ping alert")
-        .body(format!("Device '{}' can now send you files.",&sender_ip.as_str()).as_str())
+        .body(format!("Device '{}' can now send you files.",&recipient_ip.as_str()).as_str())
         .icon("thunderbird")
         .appname("Anvel")
         .timeout(Timeout::Milliseconds(10000)) //milliseconds
