@@ -38,6 +38,14 @@ export interface Content{
 	}
 }
 
+export type Tab={
+    name:string,
+    createdAt:string,
+    path:string,
+    type:string,
+    id:string
+}
+
 export interface Notifications{
 	priority:string,
 	message:string

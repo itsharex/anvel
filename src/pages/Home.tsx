@@ -5,7 +5,7 @@ import SideNav from "../components/SideNav";
 import TopNav from "../components/TopNav";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../context";
-import { ErrorBody, Folder, Configurations , Content, Notifications, ChooseBackground, NetworkInformation, SendFileInfo } from "../types/definitions"
+import { ErrorBody, Tab, Folder, Configurations , Content, Notifications, ChooseBackground, NetworkInformation, SendFileInfo } from "../types/definitions"
 import { openFile, createWindow, browserSupportedFiles } from "../components/actions";
 import { useNavigate } from "react-router-dom";
 import unknownFile from "../assets/icons/filetype/application-x-zerosize.svg";
@@ -63,7 +63,15 @@ export default function Home(props:Props){
     let { API_URL }=useContext(GlobalContext)
     const navigate=useNavigate()
     let [name,setName]=useState("")
-    let [tabs,setTabs]=useState([])
+    let [tabs,setTabs]=useState<Tab[]>([
+        {
+            name:"",
+            createdAt:"",
+            path:"",
+            type:"",
+            id:""
+        }
+    ])
     let [counter,setCounter]=useState(0)
     let [isLoading,setIsLoading]=useState(true)
     let [loadingText,setLoadingText]=useState("Loading...")
@@ -349,13 +357,6 @@ export default function Home(props:Props){
             const transaction=db.transaction("tabs","readwrite")
             const tabStore=transaction.objectStore("tabs")
 
-            let date=new Date()
-            let newObj = Intl.DateTimeFormat('en-US', {
-                timeZone: "America/New_York"
-            })
-            let newDate = newObj.format(date);
-            let min=date.getMinutes()<10?`0${date.getMinutes()}`:`${date.getMinutes()}`
-            let time=date.getHours()>12?`${date.getHours()}:${min}PM`:`${date.getHours()}:${min}AM`
             const getTabs=tabStore.getAll();
             let tabs=[]
             getTabs.onsuccess=()=>{
