@@ -360,7 +360,6 @@ export default function Home(props:Props){
             getTabs.onsuccess=()=>{
                 tabs.push(...getTabs.result)
                 setTabs(tabs)
-                console.log(tabs)
             }
                             
             getTabs.onerror=()=>{
@@ -396,6 +395,7 @@ export default function Home(props:Props){
                                                                             
             getTabs.onsuccess=()=>{                
                 console.log("success")
+                localStorage.setItem("path",path);
             }
                             
             getTabs.onerror=()=>{
@@ -420,6 +420,21 @@ export default function Home(props:Props){
                 const del = tabStore.delete(deleteTab.result);
                 del.onsuccess =()=>{
                     console.log("tab deleted")
+                    let getTabs=tabStore.getAll()
+                    let tabs=[]
+                    getTabs.onsuccess=()=>{
+                        tabs.push(...getTabs.result)
+                        if(tabs.length===0){
+                            createTab("root","root")
+                            console.log(tabs)
+                        }else{
+                            localStorage.getItem("path")===path?localStorage.setItem("path",`${tabs[tabs.length-1].path}`):""
+                        }
+                    }
+                            
+                    getTabs.onerror=()=>{
+                        console.log("error: failed to open tab",getTabs.error)
+                    }
                 };
                 del.onerror=()=>{
                     console.log("error",del.result)
@@ -428,6 +443,46 @@ export default function Home(props:Props){
             deleteTab.onerror=()=>{
                 console.log("error",deleteTab.result)
             }   
+        }catch(error:any){
+            console.log(error.message)
+        }
+    }
+
+    async function updateTab(name:string,path:string){
+        try{
+            const request=await indexedDb()
+            const db:any=await request
+            const transaction=db.transaction("tabs","readwrite")
+            const tabStore=transaction.objectStore("tabs")
+
+            let oldPath=localStorage.getItem("path")
+            const getTabByPath=tabStore.index("path")
+            const Tab=getTabByPath.get([oldPath])
+
+            Tab.onsuccess=(event:any)=>{
+                let tabInfo=event.target.result
+                tabInfo.name=name
+                tabInfo.path=path
+
+                const requestUpdate = tabStore.put(tabInfo);
+                requestUpdate.onerror = () => {
+                    console.log("error",requestUpdate.error)
+                    localStorage.setItem("path",path)
+                    //deleteTab(oldPath)
+                };
+
+                let tabs=[]
+                requestUpdate.onsuccess = () => {
+                    // Success - the data is updated
+                    tabs.push(tabInfo)
+                    setTabs(tabs)
+                    localStorage.setItem("path",tabInfo.path)
+                    console.log("tab updated")
+                };
+            };
+            Tab.onerror=()=>{
+                console.log("error",Tab.result)
+            }
         }catch(error:any){
             console.log(error.message)
         }
@@ -447,7 +502,7 @@ export default function Home(props:Props){
             <div style={!props.data.backgroundImage.includes("primary-01")&&props.data.backgroundImage!=="default"?{background: `linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('${props.data.backgroundImage}') top no-repeat`, backgroundSize:"cover", backgroundAttachment:"fixed"}:props.data.backgroundImage==="default"?{background: "var(--primary-01)"}:{background: `var(--${props.data.backgroundImage})`}} className="min-h-[100vh]">
                     <TopNav data={{name, handleShowSettings, settingsHeader, showToast}}/>
                     <div className="flex">
-                        <SideNav data={{folders,error,open, getIPs, showSettings}}/>
+                        <SideNav data={{folders,error,open, getIPs, showSettings, updateTab}}/>
                         <div className="mt-[48px] flex-grow mb-[22px]">
                             {/*  folder view */}
                             <div id="folder_view">
@@ -465,7 +520,8 @@ export default function Home(props:Props){
                                                 }else{
                                                     newPath=path.slice(0,path?.lastIndexOf("/"))
                                                 }
-                                                localStorage.setItem("path",newPath)
+                                                let tabName=newPath.slice(newPath?.lastIndexOf("/")+1,newPath.length)
+                                                updateTab(tabName,newPath)
                                                 open(`${API_URL}/api/directory_content`)
 						                        endStartRequestLoop()
                                             }} title="Previous" className="bg-[var(--primary-02)] cursor-pointer pl-[10px] pr-[3px] w-[50px] h-[35px] flex items-center">
@@ -483,8 +539,6 @@ export default function Home(props:Props){
                                                     <p className="mr-[3px] text-[13px] capitalize root_path_indicator">{tab.name}</p>
                                                     <MdClose id={`folder_close_btn_${tab.name}`} className="p-[3px] none w-[22px] h-[22px] bg-[var(--primary-02)] ml-auto rounded-sm" onClick={()=>{
                                                         deleteTab(tab.path)
-                                                        localStorage.setItem("path","root");
-                                                        open(`${API_URL}/api/directory_content`)
                                                     }}/>
                                                 </div>
                                             )
@@ -747,7 +801,7 @@ export default function Home(props:Props){
                                                                 }}
                                                                 onDoubleClick={()=>{
                                                                     if(!content.metadata.is_file){
-                                                                        localStorage.setItem("path",path)
+                                                                        updateTab(content.name,path)
                                                                         open(`${API_URL}/api/directory_content`)
                                                                     }else{
                                                                         if(browserSupportedFiles(content.metadata.file_extension)){
@@ -778,7 +832,7 @@ export default function Home(props:Props){
                                                                                 openFile(`${API_URL}/api/open`,path)
                                                                             }
                                                                         }else{
-                                                                            localStorage.setItem("path",path)
+                                                                            updateTab(content.name,path)
                                                                             open(`${API_URL}/api/directory_content`)
                                                                         }
                                                                     }} className='px-[12px] py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35 {name_str}_open_item'>
@@ -793,8 +847,7 @@ export default function Home(props:Props){
                                                                     </div>):""}
 
                                                                     {!content.metadata.is_file&&tabs&&tabs.length<4?(<div 
-                                                                    onClick={()=>{                                                
-                                                                        localStorage.setItem("path",path)
+                                                                    onClick={()=>{                                               
                                                                         createTab(content.name,path)
                                                                     }} className='px-[12px] py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35 {name_str}_open_item'>
                                                                         <MdOpenInNew className="w-[25px] h-[25px] pr-[6px]"/>
