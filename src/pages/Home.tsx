@@ -280,6 +280,7 @@ export default function Home(props:Props){
         setShowSettingsTab(true)
         setStartRequestLoop(false)
         setSettingsHeader("Settings - Anvel")
+        getIPs(`${API_URL}/api/get_ip_address`)
     }
 
     function handleCloseSettings(){
@@ -435,7 +436,6 @@ export default function Home(props:Props){
     useEffect(()=>{
         getTabs()
         open(`${API_URL}/api/directory_content`)
-        getIPs(`${API_URL}/api/get_ip_address`)
 	},[counter,tabs])
     return(
         <>
@@ -846,7 +846,6 @@ export default function Home(props:Props){
                                 ):(
                                     <div style={props.data.backgroundImage==="default"||props.data.backgroundImage.includes("primary-01")?{}:{color:"white"}} className="w-full flex flex-wrap mt-[35px] text-[var(--primary-04)]" id="settings_view">
                                         <div className="ml-[200px] flex flex-col w-full gap-x-4 gap-y-12 px-[25px] pt-[13px] pb-[50px]">
-
                                             <div>
                                                 <p className="text-lg font-semibold mb-2">Network Information</p>
                                                 <div className="flex gap-6 flex-col">
