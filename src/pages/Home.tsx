@@ -481,6 +481,7 @@ export default function Home(props:Props){
                     setTabs(tabs)
                     localStorage.setItem("path",tabInfo.path)
                     console.log("tab updated")
+                    showSettings===true?setShowSettings(false):""
                 };
             };
             Tab.onerror=()=>{
