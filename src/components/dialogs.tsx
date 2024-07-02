@@ -7,7 +7,9 @@ type Props={
     data:{
         info:Content,
         functions:{
-            toggleDialog:any
+            toggleDialog:any,
+            updateTab:any,
+            open:any
         }
     }
 }
@@ -65,7 +67,7 @@ export function FileInfoDialog(props:Props){
     )
 }
 
-export function OpenFolderDialog(){
+export function OpenFolderDialog(props:Props){
     const close_dialog=()=>{
         let dialog_bg=document.getElementById("open_folder_dialog");
         dialog_bg?.classList.add("ease-in-out");
@@ -80,9 +82,12 @@ export function OpenFolderDialog(){
             // Replace backslashes with forward slashes
             path = path.replace(/\\/g, "/")
         }
-        localStorage.setItem("path",path);
         e.target.reset()
-        window.location.reload()
+
+        close_dialog()
+        let tabName=path.slice(path?.lastIndexOf("/")+1,path.length)
+        props.data.functions.updateTab(tabName,path)
+        props.data.functions.open(`${API_URL}/api/directory_content`)
     }
 
     return(

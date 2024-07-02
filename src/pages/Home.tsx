@@ -47,7 +47,7 @@ import DEB from "../assets/icons/filetype/application-x-deb.svg"
 import LNK from "../assets/icons/filetype/libreoffice-oasis-web-template.svg"
 import FolderImage from "../assets/icons/folder.png";
 import bg1 from "../assets/background/bg_1.png";
-import { FileInfoDialog } from "../components/dialogs";
+import { FileInfoDialog, OpenFolderDialog } from "../components/dialogs";
 // import bg2 from "../assets/background/bg_2.png";
 import indexedDb from "../components/indexedDb"
 
@@ -1052,6 +1052,7 @@ export default function Home(props:Props){
                         </div>
                     </div>
                     <FileInfoDialog data={{info:infoContent,functions:{toggleDialog}}}/>
+                    <OpenFolderDialog data={{functions:{updateTab,open}}}/>
                     <Footer data={{folders, onlyFolders, onlyFiles, open, handleShowSettings, notifications, showToast, handleCloseSettings, kickOffStartRequestLoop, endStartRequestLoop}}/>
                 </div>
             )}
