@@ -1,0 +1,11 @@
+{
+  "version": "v0.3.1",
+  "notes": "New version",
+  "pub_date": "2024-07-07",
+  "platforms": {
+    "windows-x86_64": {
+      "signature": "Content of app-setup.nsis.sig or app.msi.sig, depending on the chosen format",
+      "url": "https://github.com/imrany/anvel/releases/download/v0.3.1/anvel-x64-setup.nsis.zip"
+    }
+  }
+}
