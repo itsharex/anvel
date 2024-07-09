@@ -5,6 +5,8 @@ import { ErrorBody, Folder, Tab } from "../types/definitions"
 import { useState, useContext, useEffect } from "react";
 import { GlobalContext } from "../context"
 import { IoBugOutline } from "react-icons/io5";
+import { installUpdate } from '@tauri-apps/api/updater'
+import { relaunch } from '@tauri-apps/api/process'
 
 type Props = {
     data:{
@@ -17,7 +19,6 @@ type Props = {
         openNewTab:any,
         openFolder:any,
         tabs:Tab[],
-        showSettings:boolean
     }
 };
 function SideNav(props:Props) {
