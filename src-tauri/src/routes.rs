@@ -39,7 +39,6 @@ use serde::{
     Deserialize,
 };
 // use serde_json::json;
-use std::process::Command;
 use local_ip_address::local_ip;
 use actix_web_actors::ws;
 
@@ -51,6 +50,7 @@ struct DirectoryObject {
     metadata:FileMeta
 }
 use dirs;
+use open;
 
 #[derive(Serialize,Deserialize, Debug)]
 struct FileMeta{
@@ -342,33 +342,12 @@ pub async fn send(resource: web::Json<SendInfo>)-> HttpResponse{
 #[post("/open")]
 pub async fn open_file(path: web::Json<RootPath>) -> impl Responder {
     let file_path= &path.root;
-
-    // On Windows, use the "start" command to open the file with the default program
-    #[cfg(target_os="windows")]
-    {
-        let open_cmd=Command::new("cmd")
-            .args(&["/C", "start", "", &file_path.to_str().unwrap()])
-            .spawn();
-
-        if let Ok(_file) = open_cmd {
-            return HttpResponse::Ok().json("File opened");
-        }else {
-            return HttpResponse::InternalServerError().json("Failed to open file");
-        };
-    }
-    // On Linux or macOS, use "xdg-open" to open the file with the default program
-    #[cfg(not(target_os="windows"))]
-    {
-        let open_cmd=Command::new("xdg-open")
-            .arg(&file_path)
-            .spawn();
-            
-        if let Ok(file) = open_cmd {
-            return HttpResponse::Ok().json("File opened");
-        }else {
-            return HttpResponse::InternalServerError().json("Failed to open file");
-        };
-    }
+    let open_file=open::that(file_path);
+    if let Ok(_file) = open_file {
+        return HttpResponse::Ok().json("File opened");
+    }else {
+        return HttpResponse::InternalServerError().json("Failed to open file");
+    };
 }
 
 #[get("/get_ip_address")]
