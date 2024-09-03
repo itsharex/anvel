@@ -842,7 +842,7 @@ export default function Home(props:Props){
                                                                         if(content.metadata.is_file){
                                                                             if(browserSupportedFiles(content.metadata.file_extension)){
                                                                                 path.includes("#")?path=path.replace(/#/g,"%23"):path;
-                                                                                createWindow(`file://${path}`,label,content.name)
+                                                                                content.metadata.file_extension.toUpperCase()!=="MP4"?createWindow(`file://${path}`,label,content.name):navigate(`/media?file=${path}&label=${content.name}`)
                                                                             }else{
                                                                                 openFile(`${API_URL}/api/open`,path)
                                                                             }
@@ -858,7 +858,7 @@ export default function Home(props:Props){
                                                                         openFile(`${API_URL}/api/open`,path)
                                                                     }} className='px-[12px] py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35 {name_str}_open_item'>
                                                                         <MdOpenInNew className="w-[25px] h-[25px] pr-[6px]"/>
-                                                                        <p>Open with default app</p>
+                                                                        <p>Open with other app</p>
                                                                     </div>):""}
 
                                                                     {!content.metadata.is_file&&tabs&&tabs.length<4?(<div 
