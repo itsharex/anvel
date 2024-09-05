@@ -26,6 +26,7 @@
   --primary-04:light-dark(#252525,white);
   --primary-05:light-dark(#c2dcef4d,#3c3c3c);
   --primary-06:light-dark(#f2f2f2,#252525);
+  --primary-07:light-dark(#ffff,#0000);
 
   --theme-dark: white;
   --hover-gray:#3c3c3c;

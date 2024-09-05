@@ -3,6 +3,7 @@ import { MdArrowBack, MdClose, MdContentCopy, MdFolder, MdRefresh, MdInfoOutline
 import Footer from "../components/Footer";
 import SideNav from "../components/SideNav";
 import ReportBugBtn from "../components/ReportBugBtn"
+import AudioTag from "../components/AudioTag";
 import TopNav from "../components/TopNav";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../context";
@@ -64,6 +65,7 @@ export default function Home(props:Props){
     let { API_URL }=useContext(GlobalContext)
     const navigate=useNavigate()
     let [name,setName]=useState("")
+    let [audioSource,setAudioSource]=useState("")
     let [tabs,setTabs]=useState<Tab[]>([
         {
             name:"",
@@ -149,6 +151,22 @@ export default function Home(props:Props){
         //     image:bg2
         // }
     ]
+
+    const [isPlaying,setIsPlaying]=useState(false);
+
+    function play(id:string){
+        document.getElementById(id).play()
+        setIsPlaying(true)
+    }
+
+    function pause(id:string){
+        document.getElementById(id).pause()
+        setIsPlaying(false)
+    }
+
+    function toggleAudioTag(src:string){
+        setAudioSource(src)
+    }
 
     async function open(url:string){
         setLoadingText("Loading...")
@@ -821,7 +839,8 @@ export default function Home(props:Props){
                                                                     }else{
                                                                         if(browserSupportedFiles(content.metadata.file_extension)){
                                                                             path.includes("#")?path=path.replace(/#/g,"%23"):path;
-                                                                            content.metadata.file_extension.toUpperCase()!=="MP4"?createWindow(`file://${path}`,label,content.name):navigate(`/media?file=${path}&label=${content.name}`)
+                                                                        
+                                                                            content.metadata.file_extension.toUpperCase()==="MP4"?navigate(`/media?file=${path}&label=${content.name}`):content.metadata.file_extension.toUpperCase()==="MP3"?toggleAudioTag(path):createWindow(`file://${path}`,label,content.name)                                               
                                                                         }else{
                                                                             openFile(`${API_URL}/api/open`,path)
                                                                         }
@@ -842,7 +861,7 @@ export default function Home(props:Props){
                                                                         if(content.metadata.is_file){
                                                                             if(browserSupportedFiles(content.metadata.file_extension)){
                                                                                 path.includes("#")?path=path.replace(/#/g,"%23"):path;
-                                                                                content.metadata.file_extension.toUpperCase()!=="MP4"?createWindow(`file://${path}`,label,content.name):navigate(`/media?file=${path}&label=${content.name}`)
+                                                                                content.metadata.file_extension.toUpperCase()==="MP4"?navigate(`/media?file=${path}&label=${content.name}`):content.metadata.file_extension.toUpperCase()==="MP3"?toggleAudioTag(path):createWindow(`file://${path}`,label,content.name)                                               
                                                                             }else{
                                                                                 openFile(`${API_URL}/api/open`,path)
                                                                             }
@@ -1068,6 +1087,7 @@ export default function Home(props:Props){
                     <OpenFolderDialog data={{functions:{updateTab,open,createTab},isCreateTabBtnPressed}}/>
                     <Footer data={{folders, onlyFolders, onlyFiles, open, handleShowSettings, notifications, showToast, handleCloseSettings, kickOffStartRequestLoop, endStartRequestLoop}}/>
                     <ReportBugBtn data={{status:networkInformation}}/>
+                    <AudioTag data={{audioSource, isPlaying}} functions={{toggleAudioTag, play, pause}}/>                       
                 </div>
             )}
         </>

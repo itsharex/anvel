@@ -23,7 +23,7 @@ export default function  Media(){
     },[])
     return(
         <div className="bg-black text-[var(--primary-04)] flex flex-col h-screen w-screen">
-            <div className="flex px-[24px] gap-4 items-center h-[30px]">
+            <div className="flex px-[24px] bg-[var(--primary-07)] gap-4 items-center h-[30px]">
                 <FaArrowLeftLong className="w-[18px] h-[18px] cursor-pointer" onClick={()=>{
                     navigate("/")
                 }}/>
