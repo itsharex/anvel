@@ -1,5 +1,5 @@
 import { MdOutlineAudiotrack, MdClose} from "react-icons/md";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { GlobalContext } from "../context";
 import { FaPlay, FaPause } from "react-icons/fa";
 
@@ -17,6 +17,9 @@ type Props={
 
 export default function AudioTag(props:Props){
     const { API_URL }=useContext(GlobalContext)
+    useEffect(()=>{
+        props.data.audioSource.length!==0?props.functions.play(props.data.audioSource):""
+    },[props.data.audioSource])
     return(
         <>
             {props.data.audioSource.length!==0?(
