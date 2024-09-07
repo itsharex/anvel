@@ -566,8 +566,8 @@ export default function Home(props:Props){
 
                                         {tabs&&tabs.map(tab=>{
                                             return(
-                                                <div key={tab.name} id={tab.name} onMouseEnter={()=>toggleShowCloseBtn(`folder_close_btn_${tab.path}`)} onMouseLeave={()=>toggleShowCloseBtn(`folder_close_btn_${tab.path}`)} className={showSettings===true||tab.path!==localStorage.getItem("path")?`bg-[var(--primary-02)] border-dotted border-l-[1px] border-[#3c3c3c]/50 hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[5px] min-w-[130px] h-[35px] flex items-center`:props.data.backgroundImage!=="default"?`bg-[var(--${props.data.backgroundImage})] hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[5px] min-w-[130px] h-[35px] flex items-center`:`bg-[var(--primary-01)] hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[5px] min-w-[130px] h-[35px] flex items-center`}>
-                                                    <button className="flex" onClick={()=>{
+                                                <div key={tab.name} id={tab.name} onMouseEnter={()=>toggleShowCloseBtn(`folder_close_btn_${tab.path}`)} onMouseLeave={()=>toggleShowCloseBtn(`folder_close_btn_${tab.path}`)} className={showSettings===true||tab.path!==localStorage.getItem("path")?`bg-[var(--primary-02)] border-dotted border-l-[1px] border-[#3c3c3c]/50 hover:bg-[#3c3c3c]/55 cursor-pointer pr-[5px] min-w-[130px] h-[35px] flex items-center`:props.data.backgroundImage!=="default"?`bg-[var(--${props.data.backgroundImage})] hover:bg-[#3c3c3c]/55 cursor-pointer pr-[5px] min-w-[130px] h-[35px] flex items-center`:`bg-[var(--primary-01)] hover:bg-[#3c3c3c]/55 cursor-pointer pr-[5px] min-w-[130px] h-[35px] flex items-center`}>
+                                                    <button className="flex flex-grow  pl-[10px] h-full items-center" onClick={()=>{
                                                         localStorage.setItem("path",tab.path)
                                                         handleCloseSettings()
                                                     }}>
