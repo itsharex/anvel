@@ -13,6 +13,8 @@ import { useNavigate } from "react-router-dom";
 import unknownFile from "../assets/icons/filetype/application-x-zerosize.svg";
 import audioMp3 from "../assets/icons/filetype/audio-mp3.svg";
 import videoMp4 from "../assets/icons/filetype/application-vnd.rn-realmedia.svg"
+import videoWMV from "../assets/icons/filetype/video-x-ms-wmv.svg"
+import audioWAV from "../assets/icons/filetype/audio-x-wav.svg"
 import PDF from "../assets/icons/filetype/application-pdf.svg"
 import DOCX from "../assets/icons/filetype/application-x-kword.svg"
 import DOC from "../assets/icons/filetype/application-x-kword.svg"
@@ -753,6 +755,9 @@ export default function Home(props:Props){
                                                         case "json":
                                                             fileIcon=SCRIPT
                                                         break;
+                                                        case "wav":
+                                                            fileIcon=audioWAV
+                                                        break;
                                                         case "c":
                                                             fileIcon=C
                                                         break;
@@ -810,6 +815,9 @@ export default function Home(props:Props){
                                                         case "desktop":
                                                             fileIcon=DESKTOP
                                                             break;
+                                                        case "wmv":
+                                                            fileIcon=videoWMV
+                                                            break;
                                                         default:
                                                             fileIcon=unknownFile
                                                             break;
@@ -844,7 +852,7 @@ export default function Home(props:Props){
                                                                         if(browserSupportedFiles(content.metadata.file_extension)){
                                                                             path.includes("#")?path=path.replace(/#/g,"%23"):path;
                                                                         
-                                                                            content.metadata.file_extension.toUpperCase()==="MP4"?navigate(`/media?file=${path}&label=${content.name}`):content.metadata.file_extension.toUpperCase()==="MP3"?toggleAudioTag(path):createWindow(`file://${path}`,label,content.name)                                               
+                                                                            content.metadata.file_extension.toUpperCase()==="MP4"||content.metadata.file_extension.toUpperCase()==="MKV"?navigate(`/media?file=${path}&label=${content.name}`):content.metadata.file_extension.toUpperCase()==="MP3"?toggleAudioTag(path):createWindow(`file://${path}`,label,content.name)                                               
                                                                         }else{
                                                                             openFile(`${API_URL}/api/open`,path)
                                                                         }
@@ -865,7 +873,7 @@ export default function Home(props:Props){
                                                                         if(content.metadata.is_file){
                                                                             if(browserSupportedFiles(content.metadata.file_extension)){
                                                                                 path.includes("#")?path=path.replace(/#/g,"%23"):path;
-                                                                                content.metadata.file_extension.toUpperCase()==="MP4"?navigate(`/media?file=${path}&label=${content.name}`):content.metadata.file_extension.toUpperCase()==="MP3"?toggleAudioTag(path):createWindow(`file://${path}`,label,content.name)                                               
+                                                                                content.metadata.file_extension.toUpperCase()==="MP4"||content.metadata.file_extension.toUpperCase()==="MKV"?navigate(`/media?file=${path}&label=${content.name}`):content.metadata.file_extension.toUpperCase()==="MP3"?toggleAudioTag(path):createWindow(`file://${path}`,label,content.name)                                               
                                                                             }else{
                                                                                 openFile(`${API_URL}/api/open`,path)
                                                                             }
