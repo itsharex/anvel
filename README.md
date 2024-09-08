@@ -44,3 +44,17 @@ Replace `<Your-Username>` with your username.
 * On user variables, under `Path`, press `New` then paste `C:/Program Files/anvel/bin`.
 
 * Press apply then ok.
+
+
+### Docker
+#### Building Anvel Docker Image
+```bash
+docker build -t anvel .
+```
+This will download and build the Anvel app inside the Docker container.
+
+#### Running the Dockerized Anvel app
+```bash
+docker run -it --rm anvel
+```
+
